@@ -5,6 +5,7 @@
 		<Option title="premake5cb" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="cb/;pm/" />
 		<Build>
 			<Target title="to_codeblocks_wx30">
 				<Option output="$(#cb.lib)/codeblocks/plugins/premake5cb" prefix_auto="1" extension_auto="1" />
@@ -33,38 +34,90 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-std=c++11" />
 			<Add option="-fPIC" />
+			<Add option="-std=c++11" />
 			<Add option="-DNOPCH" />
 		</Compiler>
 		<Linker>
 			<Add option="-Wl,--no-undefined" />
 		</Linker>
+		<ExtraCommands>
+			<Add before="[[ GetProjectManager().SaveAllProjects(); ]]" />
+			<Mode after="always" />
+		</ExtraCommands>
 		<Unit filename="manifest.xml" />
-		<Unit filename="pm_base.cpp" />
-		<Unit filename="pm_base.h" />
-		<Unit filename="pm_config.cpp" />
-		<Unit filename="pm_config.h" />
-		<Unit filename="pm_config_cb.cpp" />
-		<Unit filename="pm_config_cb.h" />
-		<Unit filename="pm_file.cpp" />
-		<Unit filename="pm_file.h" />
-		<Unit filename="pm_file_cb.cpp" />
-		<Unit filename="pm_file_cb.h" />
-		<Unit filename="pm_project.cpp" />
-		<Unit filename="pm_project.h" />
-		<Unit filename="pm_project_cb.cpp" />
-		<Unit filename="pm_project_cb.h" />
-		<Unit filename="pm_regex.cpp" />
-		<Unit filename="pm_regex.h" />
-		<Unit filename="pm_settings.cpp" />
-		<Unit filename="pm_settings.h" />
-		<Unit filename="pm_utils.cpp" />
-		<Unit filename="pm_utils.h" />
-		<Unit filename="pm_workspace.cpp" />
-		<Unit filename="pm_workspace.h" />
-		<Unit filename="pm_workspace_cb.cpp" />
-		<Unit filename="pm_workspace_cb.h" />
+		<Unit filename="pm_base.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_base.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_config.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_config.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_config_cb.cpp">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_config_cb.h">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_file.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_file.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_file_cb.cpp">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_file_cb.h">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_project.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_project.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_project_cb.cpp">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_project_cb.h">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_regex.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_regex.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_settings.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_settings.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_utils.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_utils.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_workspace.cpp">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_workspace.h">
+			<Option virtualFolder="pm/" />
+		</Unit>
+		<Unit filename="pm_workspace_cb.cpp">
+			<Option virtualFolder="cb/" />
+		</Unit>
+		<Unit filename="pm_workspace_cb.h">
+			<Option virtualFolder="cb/" />
+		</Unit>
 		<Unit filename="premake5cb.cpp" />
 		<Unit filename="premake5cb.h" />
 		<Extensions />

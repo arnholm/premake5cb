@@ -1,17 +1,14 @@
 #include "pm_settings.h"
 
 pm_settings::pm_settings()
-{
-   //ctor
-}
+{}
 
 pm_settings::~pm_settings()
-{
-   //dtor
-}
+{}
 
 void pm_settings::premake_export(size_t tabs, std::ostream& out)
 {
+   // traverse all contained settings
    for(auto& p : *this) {
       const wxString& key    = p.first;
       const string_vec& vals = p.second;

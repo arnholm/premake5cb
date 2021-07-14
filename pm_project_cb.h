@@ -8,6 +8,7 @@ class cbProject;
 class pm_regex;
 class pm_settings;
 
+// Code::Blocks aware project class
 class pm_project_cb : public pm_project {
 public:
    pm_project_cb(pm_workspace* ws, cbProject* cbproject);
@@ -16,20 +17,25 @@ public:
    // return full filename of the original cb project
    virtual wxFileName filename() const;
 
-   // premake5 location
+   // premake5 location name
    virtual wxString location_name();
 
+   // traverse files in project
    virtual size_t size() const { return m_files.size(); }
    pm_file_iterator begin()    { return m_files.begin(); }
    pm_file_iterator end()      { return m_files.end(); }
 
+   // settings on project level
    virtual std::shared_ptr<pm_settings> settings() { return m_settings; }
 
+   // traverse configurations in project
    pm_config_iterator config_begin() { return m_configs.begin(); }
    pm_config_iterator config_end() { return m_configs.end(); }
 
+   // project dependencies, i.e. only build dependencies as declared in C::B
    virtual pm_project_vec dependencies() const;
 
+   // add some "includedirs" based on dependencies. Not perfect...
    virtual void resolve_includes();
 
 protected:
@@ -38,13 +44,13 @@ protected:
    void get_defines();
 
 private:
-   pm_workspace*  m_ws;         // parent workspace
-   cbProject*     m_cbproject;  // C::B project
+   pm_workspace*             m_ws;           // parent workspace
+   cbProject*                m_cbproject;    // C::B project
 
-   std::shared_ptr<pm_regex> m_regx;
+   std::shared_ptr<pm_regex> m_regx;         // regular expression for project file inclusion
 
-   pm_file_vec               m_files;
-   pm_config_vec             m_configs;
+   pm_file_vec               m_files;        // project files
+   pm_config_vec             m_configs;      // project configurations (=build targets)
 
    std::shared_ptr<pm_settings> m_settings;  // settings on project level
 };

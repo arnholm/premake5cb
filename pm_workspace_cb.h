@@ -8,6 +8,7 @@ class pm_settings;
 class cbProject;
 class pm_project_cb;
 
+// Code::Blocks aware workspace class
 class pm_workspace_cb : public pm_workspace {
 public:
    pm_workspace_cb();
@@ -26,8 +27,10 @@ public:
    virtual pm_project_iterator begin() { return m_projects.begin(); }
    virtual pm_project_iterator end()   { return m_projects.end(); }
 
+   // workspace level settings
    virtual std::shared_ptr<pm_settings> settings() { return m_settings; }
 
+   // resolve project dependencies as declared in workspace
    pm_project_vec dependencies(const cbProject* cbproject) const;
 
 protected:

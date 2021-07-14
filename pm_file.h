@@ -4,6 +4,7 @@
 #include "pm_base.h"
 #include <wx/filename.h>
 
+// project (source) file
 class pm_file : public pm_base {
 public:
    pm_file();
@@ -15,6 +16,7 @@ public:
    // return filename relative to the project
    virtual wxFileName relative_filename() const = 0;
 
+   // export to Lua
    virtual void premake_export(std::ostream& out);
 };
 

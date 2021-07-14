@@ -8,6 +8,7 @@ class pm_project;
 class pm_settings;
 class cbProject;
 
+// workspace class
 class pm_workspace : public pm_base {
 public:
    pm_workspace();
@@ -29,11 +30,13 @@ public:
    virtual pm_project_iterator begin() = 0;
    virtual pm_project_iterator end() = 0;
 
+   // return workspace settings
    virtual std::shared_ptr<pm_settings> settings() = 0;
 
    // return dependencies for project
    virtual pm_project_vec dependencies(const cbProject* cbproject) const = 0;
 
+   // export to premake
    virtual void premake_export(std::ostream& out);
 };
 

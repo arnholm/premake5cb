@@ -7,7 +7,7 @@
 #include "pm_utils.h"
 class pm_settings;
 
-
+// project class
 class pm_project : public pm_base {
 public:
    pm_project();
@@ -34,10 +34,13 @@ public:
    virtual pm_config_iterator config_begin() = 0;
    virtual pm_config_iterator config_end() = 0;
 
+   // return project dependencies as declared in workspace
    virtual pm_project_vec dependencies() const = 0;
 
+   // resolve includes based on dependencies
    virtual void resolve_includes() = 0;
 
+   // export to Lua
    virtual void premake_export(std::ostream& out);
 };
 

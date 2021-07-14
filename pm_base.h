@@ -5,11 +5,13 @@
 #include <memory>
 #include <ostream>
 
+// abstract base class for several premake5 classes
 class pm_base {
 public:
    pm_base();
    virtual ~pm_base();
 
+   // export to Lua
    virtual void premake_export(std::ostream& out) = 0;
 };
 

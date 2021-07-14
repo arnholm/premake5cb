@@ -4,6 +4,7 @@
 #include "pm_base.h"
 class pm_settings;
 
+// project configuration (a.k.a. build target)
 class pm_config : public pm_base {
 public:
    pm_config();
@@ -12,12 +13,16 @@ public:
    // return C::B config name
    virtual wxString name() const = 0;
 
+   // settings on config level
    virtual std::shared_ptr<pm_settings> settings() = 0;
 
+   // type of build target "ConsoleApp", "SharedLib" etc.
    virtual wxString kind() = 0;
 
+   // is this a debug configuration?
    virtual bool is_debug() const = 0;
 
+   // export to Lua
    virtual void premake_export(std::ostream& out);
 };
 

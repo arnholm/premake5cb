@@ -14,7 +14,10 @@ pm_regex::~pm_regex()
 
 void pm_regex::push_back(wxString mask)
 {
+   // make sure any periods are escaped
    mask.Replace(".","\\.");
+
+   // replace basic '?' and '*' file name wildcards with regex equivalents
    mask.Replace("?",".");
    mask.Replace("*",".*");
    m_masks.push_back(mask.ToStdString());
@@ -33,6 +36,7 @@ bool pm_regex::regex_match(const wxString& wxname)
 
 std::shared_ptr<pm_regex>  pm_regex::default_cpp()
 {
+   // default C and C++ file types
    auto regx = std::make_shared<pm_regex>();
    regx->push_back("*.cpp");
    regx->push_back("*.c");

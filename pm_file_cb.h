@@ -4,6 +4,7 @@
 #include "pm_file.h"
 class ProjectFile;
 
+// Code::Blocks aware project (=source) file
 class pm_file_cb : public pm_file {
 public:
    pm_file_cb(ProjectFile*  cbfile);
