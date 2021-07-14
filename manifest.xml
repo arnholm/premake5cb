@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_plugin_manifest_file>
+    <SdkVersion major="2" minor="11"  release="0" />
+    <Plugin name="premake5cb">
+        <Value title="premake5cb" />
+        <Value version="0.1" />
+        <Value description="premake5cb - for testing" />
+        <Value author="ca" />
+        <Value authorEmail="" />
+        <Value authorWebsite="" />
+        <Value thanksTo="myself" />
+        <Value license="GPL" />
+    </Plugin>
+</CodeBlocks_plugin_manifest_file>

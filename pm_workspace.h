@@ -1,0 +1,40 @@
+#ifndef PM_WORKSPACE_H
+#define PM_WORKSPACE_H
+
+#include "pm_base.h"
+#include <wx/filename.h>
+#include "pm_utils.h"
+class pm_project;
+class pm_settings;
+class cbProject;
+
+class pm_workspace : public pm_base {
+public:
+   pm_workspace();
+   virtual ~pm_workspace();
+
+   // return full filename of the original cb workspace
+   virtual wxFileName filename() const = 0;
+
+   // return workspace name only
+   virtual wxString name()  const { return filename().GetName(); }
+
+   // return name of build location
+   virtual wxString location_name() const = 0;
+
+   // return number of projects in workspace
+   virtual size_t size() const = 0;
+
+   // project traversal
+   virtual pm_project_iterator begin() = 0;
+   virtual pm_project_iterator end() = 0;
+
+   virtual std::shared_ptr<pm_settings> settings() = 0;
+
+   // return dependencies for project
+   virtual pm_project_vec dependencies(const cbProject* cbproject) const = 0;
+
+   virtual void premake_export(std::ostream& out);
+};
+
+#endif // PM_WORKSPACE_H
