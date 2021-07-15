@@ -34,6 +34,14 @@ wxString pm_project_cb::location_name()
    return m_ws->location_name() + "/" + filename().GetName();
 }
 
+wxString pm_project_cb::relative_path() const
+{
+   wxString ws_path = m_ws->filename().GetPath();
+   wxString pr_path = wxFileName(m_cbproject->GetFilename()).GetPath();
+   size_t lws = ws_path.length();
+   return pr_path.Mid(lws+1);
+}
+
 wxFileName pm_project_cb::filename() const
 {
    return  m_cbproject->GetFilename();

@@ -20,6 +20,9 @@ void pm_project::premake_export(std::ostream& out)
 
    if(auto opt = settings()) opt->premake_export(2,out);
 
+   // path from workspace to project
+   wxString project_path = relative_path();
+
    // traverse files
    out << std::endl;
    out << "\t\t-- file paths below are relative to this .lua file" << std::endl;
@@ -28,7 +31,7 @@ void pm_project::premake_export(std::ostream& out)
    for(auto f : *this) {
       out << "\t\t\t";
       if(icount++>0) out << ',';
-      out << "\"" << name()<< '/' << f->relative_filename().GetFullPath()  << "\"" ;
+      out << "\"" << project_path << '/' << f->relative_filename().GetFullPath()  << "\"" ;
       out << std::endl;
    }
    out << "\t\t\t}" << std::endl;
