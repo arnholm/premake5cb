@@ -7,9 +7,15 @@ pm_config_cb::pm_config_cb(ProjectBuildTarget* cbtarget)
 , m_settings(std::make_shared<pm_settings>())
 , m_is_debug(false)
 {
-  m_name = m_cbtarget->GetTitle();
+   m_settings->push_back("language","C++");         // language, general, for language std, see configs
+   m_settings->push_back("exceptionhandling","on"); // exception handling
+   m_settings->push_back("rtti","on");              // run-time type information
+   m_settings->push_back("pic","on");               // position independent code
+   m_settings->push_back("architecture","x86_64");  // 64 bit
+   m_settings->push_back("staticruntime","off");    // used only for MSVC
 
-  get_defines();
+   m_name = m_cbtarget->GetTitle();
+   get_defines();
 }
 
 pm_config_cb::~pm_config_cb()

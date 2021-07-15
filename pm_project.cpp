@@ -25,7 +25,7 @@ void pm_project::premake_export(std::ostream& out)
 
    // traverse files
    out << std::endl;
-   out << "\t\t-- file paths below are relative to this .lua file" << std::endl;
+   out << "\t\t-- file paths are relative to premake5.lua file" << std::endl;
    out << "\t\tfiles {" << std::endl;
    size_t icount = 0;
    for(auto f : *this) {

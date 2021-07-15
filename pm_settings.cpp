@@ -23,7 +23,7 @@ void pm_settings::premake_export(size_t tabs, std::ostream& out)
 
       if(key == "includedirs") {
          for(size_t i=0;i<tabs;i++) out << '\t';
-         out << "-- include paths are relative to location of generated makefile" << std::endl;
+         out << "-- include dirs are relative to location of generated makefile" << std::endl;
       }
 
       for(size_t i=0;i<tabs;i++) out << '\t';

@@ -16,13 +16,6 @@ pm_project_cb::pm_project_cb(pm_workspace* ws, cbProject* cbproject)
    get_files();
    get_configs();
    get_defines();
-
-   m_settings->push_back("language","C++");         // language, general, for language std, see configs
-   m_settings->push_back("exceptionhandling","on"); // exception handling
-   m_settings->push_back("rtti","on");              // run-time type information
-   m_settings->push_back("pic","on");               // position independent code
-   m_settings->push_back("architecture","x86_64");  // 64 bit
-   m_settings->push_back("staticruntime","off");    // used only for MSVC
 }
 
 pm_project_cb::~pm_project_cb()
@@ -94,7 +87,7 @@ void pm_project_cb::resolve_includes()
 {
    pm_project_vec deps = dependencies();
    for(auto d : deps) {
-      m_settings->push_back("includedirs",wxString("../")+d->name());
+      m_settings->push_back("includedirs",wxString("../")+d->relative_path());
    }
 }
 
