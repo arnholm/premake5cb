@@ -2,7 +2,7 @@
 <CodeBlocks_plugin_manifest_file>
     <SdkVersion major="2" minor="11"  release="0" />
     <Plugin name="premake5cb">
-        <Value title="premake5cb" />
+        <Value title="Premake5 exporter" />
         <Value version="0.1" />
         <Value description="premake5cb - for testing" />
         <Value author="ca" />

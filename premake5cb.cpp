@@ -1,8 +1,15 @@
 #include <sdk.h> // Code::Blocks SDK
+#include <wx/msgdlg.h>
 #include <fstream>
 #include <configurationpanel.h>
 #include "premake5cb.h"
 #include "pm_workspace_cb.h"
+
+const long premake5cb::ID_EXPORT = wxNewId();
+
+BEGIN_EVENT_TABLE(premake5cb,cbToolPlugin)
+   EVT_MENU(ID_EXPORT, premake5cb::OnFileExport)
+END_EVENT_TABLE()
 
 // Register the plugin with Code::Blocks.
 // We are using an anonymous namespace so we don't litter the global one.
@@ -42,6 +49,9 @@ void premake5cb::OnAttach()
     // we save the premak5 file after compile completed
     Manager::Get()->RegisterEventSink(cbEVT_COMPILER_FINISHED , new cbEventFunctor<premake5cb, CodeBlocksEvent>(this, &premake5cb::OnSave));
 
+    // Because this is a cbToolPlugin, Code::Blocks will never call BuildMenu
+    // so we do it ourselves...
+    BuildMenu(Manager::Get()->GetAppFrame()->GetMenuBar());
 }
 
 void premake5cb::OnRelease(bool appShutDown)
@@ -53,9 +63,42 @@ void premake5cb::OnRelease(bool appShutDown)
     // m_IsAttached will be FALSE...
 }
 
+int premake5cb::Execute()
+{
+   wxMessageBox("This works"," premake5cb::Execute()");
+
+   return 0;
+}
+
+void premake5cb::BuildMenu(wxMenuBar* menuBar)
+{
+   int pos          = menuBar->FindMenu("File");
+   wxMenu* fileMenu = menuBar->GetMenu(pos);
+
+   int index = 0;
+   wxMenuItemList& items = fileMenu->GetMenuItems();
+   for(wxMenuItem* item : items) {
+      wxString label = item->GetItemLabelText();
+      index++;
+      if(label == "Save everything")break;
+   }
+   fileMenu->Insert(index,ID_EXPORT,"Premake5 export...");
+}
 
 void premake5cb::OnSave(CodeBlocksEvent& event)
 {
+   DoExport();
+}
+
+void premake5cb::OnFileExport(wxCommandEvent& event)
+{
+   DoExport();
+}
+
+void premake5cb::DoExport()
+{
+   wxMessageBox("premake5cb::DoExport()"," premake5cb::DoExport()");
+
    if(m_IsAttached) {
       auto ws = std::make_shared<pm_workspace_cb>();
       wxFileName lua_name(ws->filename().GetPath(),"premake5","lua");
