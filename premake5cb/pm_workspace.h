@@ -5,6 +5,7 @@
 #include <wx/filename.h>
 #include "pm_utils.h"
 class pm_project;
+class pm_defaults;
 class pm_settings;
 class cbProject;
 
@@ -32,6 +33,9 @@ public:
    // project traversal
    virtual pm_project_iterator begin() = 0;
    virtual pm_project_iterator end() = 0;
+
+   // default settings
+   virtual std::shared_ptr<pm_defaults> defaults() = 0;
 
    // return workspace settings
    virtual std::shared_ptr<pm_settings> settings() = 0;

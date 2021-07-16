@@ -31,6 +31,9 @@ public:
    virtual pm_project_iterator begin() { return m_projects.begin(); }
    virtual pm_project_iterator end()   { return m_projects.end(); }
 
+   // default settings
+   virtual std::shared_ptr<pm_defaults> defaults() { return m_defaults; }
+
    // workspace level settings
    virtual std::shared_ptr<pm_settings> settings() { return m_settings; }
 

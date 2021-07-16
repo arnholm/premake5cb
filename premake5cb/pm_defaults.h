@@ -8,12 +8,20 @@
 
 #include <configmanager.h>
 
+class pm_settings;
+
 using SettingsMap = std::map<wxString,std::vector<wxString>>;
 
 class pm_defaults {
 public:
    pm_defaults(ConfigManager* cfgmgr);
    virtual ~pm_defaults();
+
+   // translate selected category int a pm_settings object
+   //   "ProjectDefaults"
+   //   "ConfigsRelease"
+   //   "ConfigsDebug"
+   std::shared_ptr<pm_settings> get_settings(const wxString& category);
 
    // retrieve a vector ov values assiciated with the key
    const std::vector<wxString>&  get(const wxString& key) { return m_settings_map[key]; }
@@ -38,3 +46,5 @@ private:
 };
 
 #endif // PM_DEFAULTS_H
+
+

@@ -5,14 +5,16 @@
 #include "pm_workspace.h"
 #include "pm_file_cb.h"
 #include "pm_config_cb.h"
+#include "pm_defaults.h"
 #include "pm_settings.h"
 
 pm_project_cb::pm_project_cb(pm_workspace* ws, cbProject* cbproject)
 : m_ws(ws)
 , m_cbproject(cbproject)
 , m_regx(pm_regex::default_cpp())
-, m_settings(std::make_shared<pm_settings>())
 {
+   m_settings = ws->defaults()->get_settings("ProjectDefaults");
+
    get_files();
    get_configs();
    get_defines();
@@ -73,7 +75,7 @@ void pm_project_cb::get_configs()
    int nconfig = m_cbproject->GetBuildTargetsCount();
    for(int i=0; i<nconfig; i++) {
       ProjectBuildTarget* cbtarget = m_cbproject->GetBuildTarget(i);
-      m_configs.push_back(std::make_shared<pm_config_cb>(cbtarget));
+      m_configs.push_back(std::make_shared<pm_config_cb>(cbtarget,m_ws->defaults()));
    }
 }
 

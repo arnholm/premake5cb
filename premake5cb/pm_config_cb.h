@@ -3,12 +3,12 @@
 
 #include "pm_config.h"
 class ProjectBuildTarget;
-class pm_settings;
+class pm_defaults;
 
 // Code::Blocks aware config (build target) class
 class pm_config_cb : public pm_config {
 public:
-   pm_config_cb(ProjectBuildTarget* cbtarget);
+   pm_config_cb(ProjectBuildTarget* cbtarget, std::shared_ptr<pm_defaults> defaults);
    virtual ~pm_config_cb();
 
    // return config name
@@ -29,6 +29,7 @@ protected:
 
 private:
    ProjectBuildTarget*          m_cbtarget;  // C::B build target
+   std::shared_ptr<pm_defaults> m_defaults;
    std::shared_ptr<pm_settings> m_settings;  // settings on config/target level
    bool                         m_is_debug;  // this is a debug config
    wxString                     m_name;      // name of config
