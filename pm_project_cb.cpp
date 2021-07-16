@@ -35,6 +35,16 @@ wxString pm_project_cb::relative_path() const
    return pr_path.Mid(lws+1);
 }
 
+bool pm_project_cb::is_workspace_subdir() const
+{
+   wxString ws_path = m_ws->filename().GetPath();
+   wxString pr_path = wxFileName(m_cbproject->GetFilename()).GetPath();
+   if(pr_path.Find(ws_path) == 0) {
+      return true;
+   }
+   return false;
+}
+
 wxFileName pm_project_cb::filename() const
 {
    return  m_cbproject->GetFilename();

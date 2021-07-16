@@ -17,6 +17,9 @@ public:
    // return full filename of the original cb workspace
    virtual wxFileName filename() const;
 
+   // return true if all projects are in subdirs of the workspace path
+   bool is_local_workspace() const;
+
    // return name of build location
    virtual wxString location_name() const;
 

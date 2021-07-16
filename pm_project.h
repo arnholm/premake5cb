@@ -16,6 +16,9 @@ public:
    // return full filename of the original cb project
    virtual wxFileName filename()  const = 0;
 
+   // return true if project is in a subdir of the workspace path
+   virtual bool is_workspace_subdir() const = 0;
+
    // return project name only
    virtual wxString name() { return filename().GetName(); }
 

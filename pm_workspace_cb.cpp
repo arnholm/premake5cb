@@ -13,7 +13,6 @@ pm_workspace_cb::pm_workspace_cb()
    m_settings->assign("configurations",{"debug","release"});
 
    get_projects();
-
    get_dependencies();
 }
 
@@ -25,6 +24,16 @@ wxFileName pm_workspace_cb::filename() const
    cbWorkspace* ws = Manager::Get()->GetProjectManager()->GetWorkspace();
    return ws->GetFilename();
 }
+
+
+bool pm_workspace_cb::is_local_workspace() const
+{
+   for(auto proj : m_projects) {
+      if(!proj->is_workspace_subdir())return false;
+   }
+   return true;
+}
+
 
 wxString pm_workspace_cb::location_name() const
 {

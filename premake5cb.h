@@ -97,7 +97,7 @@ class premake5cb : public cbToolPlugin
      void OnSave(CodeBlocksEvent& event);
      static const long ID_EXPORT;
      void OnFileExport(wxCommandEvent& event);
-     void DoExport();
+     void DoExport(const wxFileName& lua_name);
 
      DECLARE_EVENT_TABLE()
 };

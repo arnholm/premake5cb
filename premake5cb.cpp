@@ -1,4 +1,8 @@
 #include <sdk.h> // Code::Blocks SDK
+#include <logmanager.h>
+#include <projectmanager.h>
+#include <cbworkspace.h>
+
 #include <wx/msgdlg.h>
 #include <fstream>
 #include <configurationpanel.h>
@@ -65,7 +69,9 @@ void premake5cb::OnRelease(bool appShutDown)
 
 int premake5cb::Execute()
 {
-   wxMessageBox("This works"," premake5cb::Execute()");
+ //  wxMessageBox("This works"," premake5cb::Execute()");
+
+   Manager::Get()->GetLogManager()->Log("premake5cb configuration");
 
    return 0;
 }
@@ -76,37 +82,79 @@ void premake5cb::BuildMenu(wxMenuBar* menuBar)
    wxMenu* fileMenu = menuBar->GetMenu(pos);
 
    int index = 0;
+   wxMenu* ExportMenu = 0;
    wxMenuItemList& items = fileMenu->GetMenuItems();
    for(wxMenuItem* item : items) {
       wxString label = item->GetItemLabelText();
       index++;
-      if(label == "Save everything")break;
+      if(label == "Export"){
+         if(ExportMenu = item->GetSubMenu()) {
+            ExportMenu->AppendSeparator();
+            ExportMenu->Append(ID_EXPORT,"Premake5 workspace...");
+         }
+         break;
+      }
    }
-   fileMenu->Insert(index,ID_EXPORT,"Premake5 export...");
 }
 
 void premake5cb::OnSave(CodeBlocksEvent& event)
 {
-   DoExport();
+   wxFileName fname_lua = Manager::Get()->GetProjectManager()->GetWorkspace()->GetFilename();
+   fname_lua.SetName(fname_lua.GetName()+"_premake5");
+   fname_lua.SetExt("lua");
+
+   DoExport(fname_lua);
 }
 
 void premake5cb::OnFileExport(wxCommandEvent& event)
 {
-   DoExport();
+   wxFileName fname_lua = Manager::Get()->GetProjectManager()->GetWorkspace()->GetFilename();
+   fname_lua.SetName(fname_lua.GetName()+"_premake5");
+   fname_lua.SetExt("lua");
+
+   wxWindow* parent = Manager::Get()->GetAppWindow();
+   wxFileDialog dlg(parent,"Save workspace as premake5 script",fname_lua.GetPath(),fname_lua.GetName(),wxT("Premake5 script (*.lua)|*.lua"),wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
+   if(dlg.ShowModal() == wxID_OK) {
+      fname_lua = dlg.GetPath();
+      DoExport(fname_lua);
+   }
 }
 
-void premake5cb::DoExport()
+void premake5cb::DoExport(const wxFileName& fname_lua)
 {
-   wxMessageBox("premake5cb::DoExport()"," premake5cb::DoExport()");
-
    if(m_IsAttached) {
       auto ws = std::make_shared<pm_workspace_cb>();
-      wxFileName lua_name(ws->filename().GetPath(),"premake5","lua");
+      if(ws->size()==0) {
+         Manager::Get()->GetLogManager()->LogError("premake5cb: workspace is empty " + ws->filename().GetFullPath());
+         return;
+      }
 
-      std::string fname = lua_name.GetFullPath().ToStdString();
-      std::ofstream out(fname);
-      if(out.is_open()) {
-         ws->premake_export(out);
+      if(ws->is_local_workspace()) {
+         std::string fname = fname_lua.GetFullPath().ToStdString();
+         std::ofstream out(fname);
+         if(out.is_open()) {
+
+            // write the premake5 file
+            ws->premake_export(out);
+            Manager::Get()->GetLogManager()->Log("premake5cb: created " + fname_lua.GetFullPath());
+
+            // produce error/warning message if it was saved in the wrong folder
+            wxString lua_path = fname_lua.GetPath();
+            wxString ws_path  = ws->filename().GetPath();
+            if(lua_path != ws_path) {
+               Manager::Get()->GetLogManager()->LogError(wxString("premake5cb: C::B workspace and premake5 folders are not the same!")
+                                                            + "\nC::B workspace folder = " + ws_path
+                                                            + "\nPremake5 lua folder = " + lua_path
+                                                           );
+            }
+
+         }
+         else {
+            Manager::Get()->GetLogManager()->LogError("premake5cb: could not write to " + fname_lua.GetFullPath());
+         }
+      }
+      else {
+         Manager::Get()->GetLogManager()->LogError("premake5cb: projects are not subdirs of " + ws->filename().GetFullPath());
       }
    }
 }
