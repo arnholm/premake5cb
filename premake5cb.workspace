@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_workspace_file>
+	<Workspace title="premake5cb">
+		<Project filename="premake5cb/premake5cb.cbp" />
+	</Workspace>
+</CodeBlocks_workspace_file>

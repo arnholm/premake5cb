@@ -1,8 +1,10 @@
 #include "pm_workspace_cb.h"
 #include <stdexcept>
+#include <set>
 
 #include "projectmanager.h"
 #include "pm_project_cb.h"
+#include "pm_config.h"
 #include "pm_settings.h"
 #include <cbworkspace.h>
 #include <cbproject.h>
@@ -10,7 +12,7 @@
 pm_workspace_cb::pm_workspace_cb()
 : m_settings(std::make_shared<pm_settings>())
 {
-   m_settings->assign("configurations",{"debug","release"});
+ //  m_settings->assign("configurations",{"debug","release"});
 
    get_projects();
    get_dependencies();
@@ -44,6 +46,8 @@ void pm_workspace_cb::get_projects()
 {
    m_projects.clear();
 
+   std::set<wxString> configs;
+
    if(ProjectsArray* projects = Manager::Get()->GetProjectManager()->GetProjects()) {
       // number of projects in workspace
       int nproj = projects->GetCount();
@@ -56,10 +60,20 @@ void pm_workspace_cb::get_projects()
             auto pm_proj = std::make_shared<pm_project_cb>(this,project);
             m_projects.push_back(pm_proj);
 
+            for(auto it=pm_proj->config_begin(); it!=pm_proj->config_end(); it++) {
+               auto config = *it;
+               if(config->is_debug())configs.insert("debug");
+               else                  configs.insert("release");
+            }
+
             // also insert in lookup map
             m_pmap[project] = pm_proj;
          }
       }
+   }
+
+   for(auto c : configs) {
+      m_settings->push_back("configurations",c);
    }
 }
 
