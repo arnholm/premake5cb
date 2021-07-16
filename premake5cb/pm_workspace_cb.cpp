@@ -9,11 +9,10 @@
 #include <cbworkspace.h>
 #include <cbproject.h>
 
-pm_workspace_cb::pm_workspace_cb()
+pm_workspace_cb::pm_workspace_cb(std::shared_ptr<pm_defaults> defaults)
 : m_settings(std::make_shared<pm_settings>())
+, m_defaults(defaults)
 {
- //  m_settings->assign("configurations",{"debug","release"});
-
    get_projects();
    get_dependencies();
 }
@@ -46,6 +45,7 @@ void pm_workspace_cb::get_projects()
 {
    m_projects.clear();
 
+   // record what kind of configs exist, we understand only "debug" and "release"
    std::set<wxString> configs;
 
    if(ProjectsArray* projects = Manager::Get()->GetProjectManager()->GetProjects()) {
@@ -60,6 +60,7 @@ void pm_workspace_cb::get_projects()
             auto pm_proj = std::make_shared<pm_project_cb>(this,project);
             m_projects.push_back(pm_proj);
 
+            // collect config type
             for(auto it=pm_proj->config_begin(); it!=pm_proj->config_end(); it++) {
                auto config = *it;
                if(config->is_debug())configs.insert("debug");

@@ -136,7 +136,7 @@ void premake5cb::OnFileExport(wxCommandEvent& event)
 void premake5cb::DoExport(const wxFileName& fname_lua)
 {
    if(m_IsAttached) {
-      auto ws = std::make_shared<pm_workspace_cb>();
+      auto ws = std::make_shared<pm_workspace_cb>(m_defaults);
       if(ws->size()==0) {
          Manager::Get()->GetLogManager()->LogError("premake5cb: workspace is empty " + ws->filename().GetFullPath());
          return;

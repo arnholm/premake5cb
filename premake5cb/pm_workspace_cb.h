@@ -7,11 +7,12 @@
 class pm_settings;
 class cbProject;
 class pm_project_cb;
+class pm_defaults;
 
 // Code::Blocks aware workspace class
 class pm_workspace_cb : public pm_workspace {
 public:
-   pm_workspace_cb();
+   pm_workspace_cb(std::shared_ptr<pm_defaults> defaults);
    virtual ~pm_workspace_cb();
 
    // return full filename of the original cb workspace
@@ -42,6 +43,8 @@ protected:
 
 private:
    using pm_project_map =  std::map<cbProject*,std::shared_ptr<pm_project_cb>>;
+
+   std::shared_ptr<pm_defaults> m_defaults;  // default settings from gui
 
    pm_project_vec               m_projects;
    pm_project_map               m_pmap;
