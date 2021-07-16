@@ -9,6 +9,9 @@
 #include "premake5cb.h"
 #include "pm_workspace_cb.h"
 
+#include "PM5SettingsDialog.h"
+#include "pm_defaults.h"
+
 const long premake5cb::ID_EXPORT = wxNewId();
 
 BEGIN_EVENT_TABLE(premake5cb,cbToolPlugin)
@@ -50,6 +53,9 @@ void premake5cb::OnAttach()
     // is FALSE, it means that the application did *not* "load"
     // (see: does not need) this plugin...
 
+    // Restore persistent settings
+    m_defaults = std::make_shared<pm_defaults>(Manager::Get()->GetConfigManager("premake5cb"));
+
     // we save the premak5 file after compile completed
     Manager::Get()->RegisterEventSink(cbEVT_COMPILER_FINISHED , new cbEventFunctor<premake5cb, CodeBlocksEvent>(this, &premake5cb::OnSave));
 
@@ -69,10 +75,17 @@ void premake5cb::OnRelease(bool appShutDown)
 
 int premake5cb::Execute()
 {
- //  wxMessageBox("This works"," premake5cb::Execute()");
+   PM5SettingsDialog dlg(Manager::Get()->GetAppWindow());
 
-   Manager::Get()->GetLogManager()->Log("premake5cb configuration");
+   // apply settings in GUI
+   dlg.ToDialog(m_defaults);
 
+   if(dlg.ShowModal() == wxID_OK) {
+
+      // OK was pressed
+      dlg.FromDialog(m_defaults);
+      m_defaults->ToConfigManager();
+   }
    return 0;
 }
 

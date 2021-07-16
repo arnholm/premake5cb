@@ -45,6 +45,8 @@
 			<Add before="[[ GetProjectManager().SaveAllProjects(); ]]" />
 			<Mode after="always" />
 		</ExtraCommands>
+		<Unit filename="PM5SettingsDialog.cpp" />
+		<Unit filename="PM5SettingsDialog.h" />
 		<Unit filename="manifest.xml" />
 		<Unit filename="pm_base.cpp">
 			<Option virtualFolder="pm/" />
@@ -64,6 +66,8 @@
 		<Unit filename="pm_config_cb.h">
 			<Option virtualFolder="cb/" />
 		</Unit>
+		<Unit filename="pm_defaults.cpp" />
+		<Unit filename="pm_defaults.h" />
 		<Unit filename="pm_file.cpp">
 			<Option virtualFolder="pm/" />
 		</Unit>
@@ -120,6 +124,13 @@
 		</Unit>
 		<Unit filename="premake5cb.cpp" />
 		<Unit filename="premake5cb.h" />
-		<Extensions />
+		<Unit filename="wxsmith/PM5SettingsDialog.wxs" />
+		<Extensions>
+			<wxsmith version="1">
+				<resources>
+					<wxScrollingDialog wxs="wxsmith/PM5SettingsDialog.wxs" src="PM5SettingsDialog.cpp" hdr="PM5SettingsDialog.h" fwddecl="0" i18n="1" name="PM5SettingsDialog" language="CPP" />
+				</resources>
+			</wxsmith>
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
