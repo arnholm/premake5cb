@@ -38,7 +38,7 @@ void pm_settings::premake_export(size_t tabs, std::ostream& out)
 
       if(key=="links") {
          for(size_t i=0;i<tabs;i++) out << '\t';
-         out << "-- links refer to project name, not library name"<< std::endl;
+         out << "-- When linking within workspace, 'links' refer to project name."<< std::endl;
       }
 
       for(size_t i=0;i<tabs;i++) out << '\t';

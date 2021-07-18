@@ -20,7 +20,6 @@ static void export_depends(std::shared_ptr<pm_project> proj, project_set& done, 
    }
 }
 
-
 pm_workspace::pm_workspace()
 {}
 
@@ -29,6 +28,7 @@ pm_workspace::~pm_workspace()
 
 void pm_workspace::premake_export(std::ostream& out)
 {
+   out << "-- premake5 script, genrated by Code::Blocks plugin premake5cb" << std::endl;
    out << "workspace \"" << name() << "\"" << std::endl;
    out << "\tlocation \"" << location_path() << "\"" << std::endl;
 
