@@ -39,8 +39,8 @@ void pm_defaults::factory_settings()
 
    m_settings_map["workspace_defaults"] =
    {
-      "includedir (\"$(CPDE_USR)/include\")"
-      ,"libdir (\"$(CPDE_USR)/lib\")"
+      "includedirs (\"$[CPDE_USR]/include\")"
+      ,"libdirs (\"$[CPDE_USR]/lib\")"
    };
 
    m_settings_map["project_defaults"] =
@@ -120,6 +120,8 @@ std::shared_ptr<pm_settings> pm_defaults::get_settings(const wxString& category)
             // remove quotes in tokens
             for(auto& t : tokens) {
                t.Replace("\"","");
+               t.Replace("[","{");
+               t.Replace("]","}");
                t.Trim(true);  // from right
                t.Trim(false); // from left
             }

@@ -5,14 +5,16 @@
 #include "projectmanager.h"
 #include "pm_project_cb.h"
 #include "pm_config.h"
+#include "pm_defaults.h"
 #include "pm_settings.h"
 #include <cbworkspace.h>
 #include <cbproject.h>
 
 pm_workspace_cb::pm_workspace_cb(std::shared_ptr<pm_defaults> defaults)
-: m_settings(std::make_shared<pm_settings>())
-, m_defaults(defaults)
+: m_defaults(defaults)
 {
+   m_settings = m_defaults->get_settings("workspace_defaults");
+
    get_projects();
    get_dependencies();
 }
