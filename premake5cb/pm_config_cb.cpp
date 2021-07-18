@@ -51,11 +51,11 @@ void pm_config_cb::get_defines()
    // now we can assign the defaults
    if(m_is_debug) {
       m_name     = "configurations:debug";
-      m_settings =  m_defaults->get_settings("ConfigsDebug");
+      m_settings =  m_defaults->get_settings("configurations_debug");
    }
    else {
       m_name     =  "configurations:release";
-      m_settings =  m_defaults->get_settings("ConfigsRelease");
+      m_settings =  m_defaults->get_settings("configurations_release");
    }
 
    for(int i=0; i<opts.GetCount(); i++) {

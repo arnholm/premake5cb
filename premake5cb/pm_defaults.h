@@ -18,10 +18,11 @@ public:
    pm_defaults(ConfigManager* cfgmgr);
    virtual ~pm_defaults();
 
-   // translate selected category int a pm_settings object
-   //   "ProjectDefaults"
-   //   "ConfigsRelease"
-   //   "ConfigsDebug"
+   // translate selected categoryo int a pm_settings object
+   //   "workspace_defaults"
+   //   "project_defaults"
+   //   "configurations_release"
+   //   "configurations_debug"
    std::shared_ptr<pm_settings> get_settings(const wxString& category);
 
    // retrieve a vector ov values assiciated with the key

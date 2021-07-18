@@ -32,12 +32,12 @@ class PM5SettingsDialog: public wxScrollingDialog
 		wxCheckBox* CheckExport;
 		wxCheckBox* CheckUsePrefix;
 		wxStaticText* StaticText1;
-		wxStaticText* StaticText2;
 		wxStaticText* StaticText3;
-		wxTextCtrl* ConfigsDebug;
-		wxTextCtrl* ConfigsRelease;
 		wxTextCtrl* FileMasks;
-		wxTextCtrl* ProjectDefaults;
+		wxTextCtrl* configurations_debug;
+		wxTextCtrl* configurations_release;
+		wxTextCtrl* project_defaults;
+		wxTextCtrl* workspace_defaults;
 		//*)
 
 	protected:
@@ -49,7 +49,8 @@ class PM5SettingsDialog: public wxScrollingDialog
 		static const long ID_STATICTEXT3;
 		static const long ID_BUTTON1;
 		static const long ID_PANEL1;
-		static const long ID_STATICTEXT2;
+		static const long ID_TEXTCTRL5;
+		static const long ID_PANEL4;
 		static const long ID_TEXTCTRL4;
 		static const long ID_PANEL3;
 		static const long ID_STATICTEXT1;

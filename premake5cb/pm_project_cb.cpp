@@ -13,7 +13,7 @@ pm_project_cb::pm_project_cb(pm_workspace* ws, cbProject* cbproject)
 , m_cbproject(cbproject)
 , m_regx(pm_regex::default_cpp())
 {
-   m_settings = ws->defaults()->get_settings("ProjectDefaults");
+   m_settings = ws->defaults()->get_settings("project_defaults");
 
    // include this project's path as include path explicitly
    // because sometimes we include files from subdirs of this project

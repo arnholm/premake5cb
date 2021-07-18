@@ -37,7 +37,13 @@ void pm_defaults::factory_settings()
      ,"*.c"
    };
 
-   m_settings_map["ProjectDefaults"] =
+   m_settings_map["workspace_defaults"] =
+   {
+      "includedir (\"$(CPDE_USR)/include\")"
+      ,"libdir (\"$(CPDE_USR)/lib\")"
+   };
+
+   m_settings_map["project_defaults"] =
    {
       "language (\"c++\")"
       ,"cppdialect (\"c++17\")"
@@ -48,13 +54,13 @@ void pm_defaults::factory_settings()
       ,"staticruntime (\"off\")"
    };
 
-   m_settings_map["ConfigsRelease"] =
+   m_settings_map["configurations_release"] =
    {
       "defines (\"NDEBUG\")"
       ,"optimize (\"on\")"
    };
 
-   m_settings_map["ConfigsDebug"] =
+   m_settings_map["configurations_debug"] =
    {
       "defines (\"DEBUG\")"
       ,"symbols (\"on\")"

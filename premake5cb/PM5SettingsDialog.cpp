@@ -12,7 +12,8 @@ const long PM5SettingsDialog::ID_CHECKBOX2 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT3 = wxNewId();
 const long PM5SettingsDialog::ID_BUTTON1 = wxNewId();
 const long PM5SettingsDialog::ID_PANEL1 = wxNewId();
-const long PM5SettingsDialog::ID_STATICTEXT2 = wxNewId();
+const long PM5SettingsDialog::ID_TEXTCTRL5 = wxNewId();
+const long PM5SettingsDialog::ID_PANEL4 = wxNewId();
 const long PM5SettingsDialog::ID_TEXTCTRL4 = wxNewId();
 const long PM5SettingsDialog::ID_PANEL3 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT1 = wxNewId();
@@ -30,6 +31,7 @@ END_EVENT_TABLE()
 PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoint& pos,const wxSize& size)
 {
 	//(*Initialize(PM5SettingsDialog)
+	wxBoxSizer* BoxSizer10;
 	wxBoxSizer* BoxSizer1;
 	wxBoxSizer* BoxSizer2;
 	wxBoxSizer* BoxSizer3;
@@ -38,15 +40,19 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	wxBoxSizer* BoxSizer6;
 	wxBoxSizer* BoxSizer7;
 	wxBoxSizer* BoxSizer8;
+	wxBoxSizer* BoxSizer9;
 	wxButton* FactorySettingsButton;
 	wxNotebook* Notebook1;
 	wxPanel* PanelConfigDefaults;
 	wxPanel* PanelGeneral;
-	wxPanel* PanelProjectDefaults;
+	wxPanel* PanelWorkspaceDefaults;
+	wxPanel* Panelproject_defaults;
 	wxStaticBoxSizer* StaticBoxSizer1;
 	wxStaticBoxSizer* StaticBoxSizer2;
 	wxStaticBoxSizer* StaticBoxSizer3;
 	wxStaticBoxSizer* StaticBoxSizer4;
+	wxStaticText* StaticText2;
+	wxStaticText* StaticText4;
 	wxStdDialogButtonSizer* StdDialogButtonSizer1;
 
 	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
@@ -68,7 +74,7 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	CheckUsePrefix = new wxCheckBox(PanelGeneral, ID_CHECKBOX2, _("Use workspace prefix in premake5 filename"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
 	CheckUsePrefix->SetValue(false);
 	BoxSizer3->Add(CheckUsePrefix, 0, wxALL|wxALIGN_LEFT, 5);
-	BoxSizer3->Add(0,0,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer4 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Factory settings"));
 	StaticText3 = new wxStaticText(PanelGeneral, ID_STATICTEXT3, _("Warning: This cannot be undone!"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
 	StaticBoxSizer4->Add(StaticText3, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
@@ -76,15 +82,24 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	StaticBoxSizer4->Add(FactorySettingsButton, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(StaticBoxSizer4, 0, wxALL|wxEXPAND, 5);
 	PanelGeneral->SetSizer(BoxSizer3);
-	PanelProjectDefaults = new wxPanel(Notebook1, ID_PANEL3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL3"));
+	PanelWorkspaceDefaults = new wxPanel(Notebook1, ID_PANEL4, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL4"));
+	BoxSizer9 = new wxBoxSizer(wxVERTICAL);
+	BoxSizer10 = new wxBoxSizer(wxHORIZONTAL);
+	StaticText4 = new wxStaticText(PanelWorkspaceDefaults, wxID_ANY, _("Settings apply to premake workspace level"), wxDefaultPosition, wxDefaultSize, 0, _T("wxID_ANY"));
+	BoxSizer10->Add(StaticText4, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer9->Add(BoxSizer10, 0, wxEXPAND, 5);
+	workspace_defaults = new wxTextCtrl(PanelWorkspaceDefaults, ID_TEXTCTRL5, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL5"));
+	BoxSizer9->Add(workspace_defaults, 1, wxALL|wxEXPAND, 5);
+	PanelWorkspaceDefaults->SetSizer(BoxSizer9);
+	Panelproject_defaults = new wxPanel(Notebook1, ID_PANEL3, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL3"));
 	BoxSizer5 = new wxBoxSizer(wxVERTICAL);
 	BoxSizer8 = new wxBoxSizer(wxHORIZONTAL);
-	StaticText2 = new wxStaticText(PanelProjectDefaults, ID_STATICTEXT2, _("Settings apply to premake project level"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT2"));
+	StaticText2 = new wxStaticText(Panelproject_defaults, wxID_ANY, _("Settings apply to premake project level"), wxDefaultPosition, wxDefaultSize, 0, _T("wxID_ANY"));
 	BoxSizer8->Add(StaticText2, 1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer5->Add(BoxSizer8, 0, wxEXPAND, 5);
-	ProjectDefaults = new wxTextCtrl(PanelProjectDefaults, ID_TEXTCTRL4, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL4"));
-	BoxSizer5->Add(ProjectDefaults, 1, wxALL|wxEXPAND, 5);
-	PanelProjectDefaults->SetSizer(BoxSizer5);
+	project_defaults = new wxTextCtrl(Panelproject_defaults, ID_TEXTCTRL4, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL4"));
+	BoxSizer5->Add(project_defaults, 1, wxALL|wxEXPAND, 5);
+	Panelproject_defaults->SetSizer(BoxSizer5);
 	PanelConfigDefaults = new wxPanel(Notebook1, ID_PANEL2, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL2"));
 	BoxSizer4 = new wxBoxSizer(wxVERTICAL);
 	BoxSizer7 = new wxBoxSizer(wxHORIZONTAL);
@@ -93,17 +108,18 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	BoxSizer4->Add(BoxSizer7, 0, wxEXPAND, 5);
 	BoxSizer6 = new wxBoxSizer(wxHORIZONTAL);
 	StaticBoxSizer3 = new wxStaticBoxSizer(wxHORIZONTAL, PanelConfigDefaults, _("Debug"));
-	ConfigsDebug = new wxTextCtrl(PanelConfigDefaults, ID_TEXTCTRL3, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL3"));
-	StaticBoxSizer3->Add(ConfigsDebug, 1, wxALL|wxEXPAND, 5);
+	configurations_debug = new wxTextCtrl(PanelConfigDefaults, ID_TEXTCTRL3, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL3"));
+	StaticBoxSizer3->Add(configurations_debug, 1, wxALL|wxEXPAND, 5);
 	BoxSizer6->Add(StaticBoxSizer3, 1, wxALL|wxEXPAND, 5);
 	StaticBoxSizer1 = new wxStaticBoxSizer(wxHORIZONTAL, PanelConfigDefaults, _("Release"));
-	ConfigsRelease = new wxTextCtrl(PanelConfigDefaults, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL2"));
-	StaticBoxSizer1->Add(ConfigsRelease, 1, wxALL|wxEXPAND, 5);
+	configurations_release = new wxTextCtrl(PanelConfigDefaults, ID_TEXTCTRL2, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_MULTILINE, wxDefaultValidator, _T("ID_TEXTCTRL2"));
+	StaticBoxSizer1->Add(configurations_release, 1, wxALL|wxEXPAND, 5);
 	BoxSizer6->Add(StaticBoxSizer1, 1, wxALL|wxEXPAND, 5);
 	BoxSizer4->Add(BoxSizer6, 1, wxALL|wxEXPAND, 5);
 	PanelConfigDefaults->SetSizer(BoxSizer4);
 	Notebook1->AddPage(PanelGeneral, _("General"), false);
-	Notebook1->AddPage(PanelProjectDefaults, _("Project defaults"), false);
+	Notebook1->AddPage(PanelWorkspaceDefaults, _("Workspace defaults"), false);
+	Notebook1->AddPage(Panelproject_defaults, _("Project defaults"), false);
 	Notebook1->AddPage(PanelConfigDefaults, _("Config defaults"), false);
 	BoxSizer2->Add(Notebook1, 6, wxALL|wxEXPAND, 5);
 	BoxSizer1->Add(BoxSizer2, 1, wxEXPAND, 5);
@@ -146,17 +162,19 @@ void PM5SettingsDialog::ToDialog(std::shared_ptr<pm_defaults> defaults)
 {
    m_defaults = defaults;
    PutLines(FileMasks,defaults->get("FileMasks"));
-   PutLines(ProjectDefaults,defaults->get("ProjectDefaults"));
-   PutLines(ConfigsRelease,defaults->get("ConfigsRelease"));
-   PutLines(ConfigsDebug,defaults->get("ConfigsDebug"));
+   PutLines(workspace_defaults,defaults->get("workspace_defaults"));
+   PutLines(project_defaults,defaults->get("project_defaults"));
+   PutLines(configurations_release,defaults->get("configurations_release"));
+   PutLines(configurations_debug,defaults->get("configurations_debug"));
 }
 
 void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
 {
    defaults->put("FileMasks",GetLines(FileMasks));
-   defaults->put("ProjectDefaults",GetLines(ProjectDefaults));
-   defaults->put("ConfigsRelease",GetLines(ConfigsRelease));
-   defaults->put("ConfigsDebug",GetLines(ConfigsDebug));
+   defaults->put("workspace_defaults",GetLines(workspace_defaults));
+   defaults->put("project_defaults",GetLines(project_defaults));
+   defaults->put("configurations_release",GetLines(configurations_release));
+   defaults->put("configurations_debug",GetLines(configurations_debug));
    m_defaults = defaults;
 }
 
