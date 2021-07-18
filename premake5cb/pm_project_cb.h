@@ -23,8 +23,11 @@ public:
    // premake5 location name
    virtual wxString location_name();
 
-   // return relative path from workspace to project directories
+   // return relative path from workspace to project directory
    virtual wxString relative_path() const;
+
+   // return relative path from workspace to parent of project directory
+   virtual wxString relative_parent_path() const;
 
    // traverse files in project
    virtual size_t size() const { return m_files.size(); }

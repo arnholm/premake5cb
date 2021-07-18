@@ -15,6 +15,10 @@ pm_project_cb::pm_project_cb(pm_workspace* ws, cbProject* cbproject)
 {
    m_settings = ws->defaults()->get_settings("ProjectDefaults");
 
+   // include this project's path as include path explicitly
+   // because sometimes we include files from subdirs of this project
+   m_settings->push_back("includedirs",name());
+
    get_files();
    get_configs();
    get_defines();
@@ -31,10 +35,21 @@ wxString pm_project_cb::location_name()
 
 wxString pm_project_cb::relative_path() const
 {
+   // this is the relative (from workspace) path to this project folder
    wxString ws_path = m_ws->filename().GetPath();
    wxString pr_path = wxFileName(m_cbproject->GetFilename()).GetPath();
    size_t lws = ws_path.length();
    wxString path = pr_path.Mid(lws+1);
+   if(path=="") path=".";
+   return path;
+}
+
+wxString pm_project_cb::relative_parent_path() const
+{
+   // this is the relative (from workspace) path to the parent of this project folder
+   wxFileName rel_path(relative_path());
+   rel_path.SetName("");
+   wxString path = rel_path.GetFullPath();
    if(path=="") path=".";
    return path;
 }
@@ -101,7 +116,15 @@ void pm_project_cb::resolve_includes()
 {
    pm_project_vec deps = dependencies();
    for(auto d : deps) {
-      m_settings->push_back("includedirs",wxString("../")+d->relative_path());
+     // m_settings->push_back("includedirs",wxString("../")+d->relative_path());
+
+      // if includes look like "dep_header.h"
+      m_settings->push_back("includedirs",d->relative_path());
+
+      // if includes look like "dep/dep_header.h"
+      m_settings->push_back("includedirs",d->relative_parent_path());
+
+      m_settings->push_back("dependson",d->name());
    }
 }
 

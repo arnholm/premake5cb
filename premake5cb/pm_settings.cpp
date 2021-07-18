@@ -6,12 +6,18 @@ pm_settings::pm_settings()
 pm_settings::~pm_settings()
 {}
 
+void pm_settings::assign(const wxString& key, const string_vec& vec)
+{
+   auto& s = m_settings[key];
+   for(auto v : vec) s.insert(v);
+}
+
 void pm_settings::premake_export(size_t tabs, std::ostream& out)
 {
    // traverse all contained settings
    for(auto& p : *this) {
       const wxString& key    = p.first;
-      const string_vec& vals = p.second;
+      const string_set& vals = p.second;
 
       // looks like "()" is for single values and "{}" is for multiple
       char left='(';
@@ -21,16 +27,13 @@ void pm_settings::premake_export(size_t tabs, std::ostream& out)
          right='}';
       }
 
-      if(key == "includedirs") {
-         for(size_t i=0;i<tabs;i++) out << '\t';
-         out << "-- include dirs are relative to location of generated makefile" << std::endl;
-      }
-
       for(size_t i=0;i<tabs;i++) out << '\t';
       out << key << " "<< left << " ";
-      for(size_t i=0; i<vals.size();i++) {
+      size_t i = 0;
+      for(auto v : vals) {
          if(i>0) out << ',';
-         out << "\""<<vals[i]<<"\"";
+         out << "\""<<v<<"\"";
+         i++;
       }
       out << " "<<right << " " << std::endl;
    }

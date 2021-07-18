@@ -2,6 +2,7 @@
 #define PM_UTILS_H
 
 #include <vector>
+#include <set>
 #include <memory>
 #include <wx/string.h>
 class pm_project;
@@ -18,5 +19,6 @@ using pm_config_vec       = std::vector<std::shared_ptr<pm_config>>;
 using pm_config_iterator  = pm_config_vec::iterator;
 
 using string_vec          = std::vector<wxString>;
+using string_set          = std::set<wxString>;
 
 #endif // PM_UTILS_H

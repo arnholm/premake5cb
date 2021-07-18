@@ -6,7 +6,6 @@
 
 pm_config_cb::pm_config_cb(ProjectBuildTarget* cbtarget, std::shared_ptr<pm_defaults> defaults)
 : m_cbtarget(cbtarget)
-, m_settings(std::make_shared<pm_settings>())
 , m_defaults(defaults)
 , m_is_debug(false)
 {

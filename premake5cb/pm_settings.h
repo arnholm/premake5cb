@@ -10,17 +10,20 @@
 // helper class to contain settings of various kinds
 class pm_settings {
 public:
-   using settings_map = std::map<wxString,string_vec>;
+   using settings_map = std::map<wxString,string_set>;
    using iterator     = settings_map::iterator;
 
    pm_settings();
    virtual ~pm_settings();
 
    // assign a vector of values to a setting
-   void assign(const wxString& key, const string_vec& v) { m_settings[key] = v; }
+   void assign(const wxString& key, const string_vec& v);
+
+   // assign a set of values to a setting
+   void assign(const wxString& key, const string_set& s) { m_settings[key] = s; }
 
    // push a single value to a named setting
-   void push_back(const wxString& key, const wxString& value) { m_settings[key].push_back(value); }
+   void push_back(const wxString& key, const wxString& value) { m_settings[key].insert(value); }
 
    // look up a particiular setting
    iterator find(const wxString& key) { return m_settings.find(key); }

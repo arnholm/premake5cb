@@ -28,6 +28,9 @@ public:
    // return relative path from workspace to project directories
    virtual wxString relative_path() const = 0;
 
+   // return relative path from workspace to project directory
+   virtual wxString relative_parent_path() const = 0;
+
    // iterate over project (source) files
    virtual size_t size() const = 0;
    virtual pm_file_iterator begin() = 0;
