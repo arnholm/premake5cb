@@ -59,7 +59,7 @@ While efforts have been made to make this fairly general, not everything will wo
 * External dependencies can be handled using premake5 commands [includedirs](https://premake.github.io/docs/includedirs/) and [libdirs](https://premake.github.io/docs/libdirs/) in either workspace defaults, project defaults or in configs. See also Premake documentation for other possibilites.
 
 * Projects such as static libraries, shared libraries and console applications are supported.
-* 
+
 * Projects using wxWidgets are initially not supported, but this should change soon.
 
 * Initially, the plugin runs only under Linux, but the generated Premake5 script can be used on Windows.
