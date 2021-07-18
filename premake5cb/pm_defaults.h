@@ -12,6 +12,7 @@ class pm_settings;
 
 using SettingsMap = std::map<wxString,std::vector<wxString>>;
 using AliasMap    = std::map<wxString,wxString>; // <libname,projectname>
+using BoolMap     = std::map<wxString,bool>; // <libname,projectname>
 
 class pm_defaults {
 public:
@@ -48,7 +49,12 @@ public:
    // look up alias, return libname if not found
    wxString get_alias(const wxString& libname) const;
 
+   // look up boolean flag, return defval if not found
+   bool get_bool_flag(const wxString& key, bool defval=false) const;
+   void put_bool_flag(const wxString& key, bool value);
+
 private:
+   BoolMap        m_bool_map;
    SettingsMap    m_settings_map;
    ConfigManager* m_cfgmgr;
 

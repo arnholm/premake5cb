@@ -9,6 +9,8 @@
 const long PM5SettingsDialog::ID_TEXTCTRL1 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX1 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX2 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX3 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX4 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT3 = wxNewId();
 const long PM5SettingsDialog::ID_BUTTON1 = wxNewId();
 const long PM5SettingsDialog::ID_PANEL1 = wxNewId();
@@ -68,12 +70,18 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(200,0), 0, _T("ID_NOTEBOOK1"));
 	PanelGeneral = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
-	CheckExport = new wxCheckBox(PanelGeneral, ID_CHECKBOX1, _("Automatic export on build"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
-	CheckExport->SetValue(false);
-	BoxSizer3->Add(CheckExport, 0, wxALL|wxALIGN_LEFT, 5);
-	CheckUsePrefix = new wxCheckBox(PanelGeneral, ID_CHECKBOX2, _("Use workspace prefix in premake5 filename"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
-	CheckUsePrefix->SetValue(false);
-	BoxSizer3->Add(CheckUsePrefix, 0, wxALL|wxALIGN_LEFT, 5);
+	export_on_build = new wxCheckBox(PanelGeneral, ID_CHECKBOX1, _("Automatic export on build (change requires C::B restart)"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
+	export_on_build->SetValue(false);
+	BoxSizer3->Add(export_on_build, 0, wxALL|wxALIGN_LEFT, 5);
+	use_workspace_prefix = new wxCheckBox(PanelGeneral, ID_CHECKBOX2, _("Use workspace prefix in premake5 filename"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
+	use_workspace_prefix->SetValue(false);
+	BoxSizer3->Add(use_workspace_prefix, 0, wxALL|wxALIGN_LEFT, 5);
+	use_workspace_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX3, _("Use workspace defaults"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
+	use_workspace_defaults->SetValue(false);
+	BoxSizer3->Add(use_workspace_defaults, 0, wxALL|wxEXPAND, 5);
+	use_project_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX4, _("Use project defaults"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
+	use_project_defaults->SetValue(false);
+	BoxSizer3->Add(use_project_defaults, 0, wxALL|wxEXPAND, 5);
 	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer4 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Factory settings"));
 	StaticText3 = new wxStaticText(PanelGeneral, ID_STATICTEXT3, _("Warning: This cannot be undone!"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
@@ -166,6 +174,12 @@ void PM5SettingsDialog::ToDialog(std::shared_ptr<pm_defaults> defaults)
    PutLines(project_defaults,defaults->get("project_defaults"));
    PutLines(configurations_release,defaults->get("configurations_release"));
    PutLines(configurations_debug,defaults->get("configurations_debug"));
+
+   export_on_build->SetValue(defaults->get_bool_flag("export_on_build"));
+   use_workspace_prefix->SetValue(defaults->get_bool_flag("use_workspace_prefix"));
+
+   use_workspace_defaults->SetValue(defaults->get_bool_flag("use_workspace_defaults"));
+   use_project_defaults->SetValue(defaults->get_bool_flag("use_project_defaults"));
 }
 
 void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
@@ -175,6 +189,12 @@ void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
    defaults->put("project_defaults",GetLines(project_defaults));
    defaults->put("configurations_release",GetLines(configurations_release));
    defaults->put("configurations_debug",GetLines(configurations_debug));
+
+   defaults->put_bool_flag("export_on_build",export_on_build->GetValue());
+   defaults->put_bool_flag("use_workspace_prefix",use_workspace_prefix->GetValue());
+   defaults->put_bool_flag("use_workspace_defaults",use_workspace_defaults->GetValue());
+   defaults->put_bool_flag("use_project_defaults",use_project_defaults->GetValue());
+
    m_defaults = defaults;
 }
 

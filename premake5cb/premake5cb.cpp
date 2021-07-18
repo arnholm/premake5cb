@@ -56,8 +56,10 @@ void premake5cb::OnAttach()
     // Restore persistent settings
     m_defaults = std::make_shared<pm_defaults>(Manager::Get()->GetConfigManager("premake5cb"));
 
-    // we save the premak5 file after compile completed
-    Manager::Get()->RegisterEventSink(cbEVT_COMPILER_FINISHED , new cbEventFunctor<premake5cb, CodeBlocksEvent>(this, &premake5cb::OnSave));
+    if(m_defaults->get_bool_flag("export_on_build",false)) {
+       // we save the premake5 file after compile completed
+       Manager::Get()->RegisterEventSink(cbEVT_COMPILER_FINISHED , new cbEventFunctor<premake5cb, CodeBlocksEvent>(this, &premake5cb::OnSave));
+    }
 
     // Because this is a cbToolPlugin, Code::Blocks will never call BuildMenu
     // so we do it ourselves...
@@ -112,8 +114,11 @@ void premake5cb::BuildMenu(wxMenuBar* menuBar)
 
 void premake5cb::OnSave(CodeBlocksEvent& event)
 {
+   bool use_workspace_prefix = m_defaults->get_bool_flag("use_workspace_prefix",true);
+
    wxFileName fname_lua = Manager::Get()->GetProjectManager()->GetWorkspace()->GetFilename();
-   fname_lua.SetName(fname_lua.GetName()+"_premake5");
+   if(use_workspace_prefix) fname_lua.SetName(fname_lua.GetName()+"_premake5");
+   else                     fname_lua.SetName("premake5");
    fname_lua.SetExt("lua");
 
    DoExport(fname_lua);
@@ -121,8 +126,11 @@ void premake5cb::OnSave(CodeBlocksEvent& event)
 
 void premake5cb::OnFileExport(wxCommandEvent& event)
 {
+   bool use_workspace_prefix = m_defaults->get_bool_flag("use_workspace_prefix",true);
+
    wxFileName fname_lua = Manager::Get()->GetProjectManager()->GetWorkspace()->GetFilename();
-   fname_lua.SetName(fname_lua.GetName()+"_premake5");
+   if(use_workspace_prefix) fname_lua.SetName(fname_lua.GetName()+"_premake5");
+   else                     fname_lua.SetName("premake5");
    fname_lua.SetExt("lua");
 
    wxWindow* parent = Manager::Get()->GetAppWindow();

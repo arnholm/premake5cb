@@ -28,12 +28,14 @@ pm_workspace::~pm_workspace()
 
 void pm_workspace::premake_export(std::ostream& out)
 {
-   out << "-- premake5 script, genrated by Code::Blocks plugin premake5cb" << std::endl;
+   out << "-- premake5 script, genrated by Code::Blocks plugin premake5cb by cacb" << std::endl;
    out << "workspace \"" << name() << "\"" << std::endl;
    out << "\tlocation \"" << location_path() << "\"" << std::endl;
 
-   // export the settings
-   if(auto opt = settings()) opt->premake_export(1,out);
+   // export the workspace settings
+   if(auto opt = settings()) {
+      opt->premake_export(1,out);
+   }
 
    std::set<std::shared_ptr<pm_project>> projects_done;
 

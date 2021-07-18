@@ -37,17 +37,31 @@
 									<object class="wxBoxSizer" variable="BoxSizer3" member="no">
 										<orient>wxVERTICAL</orient>
 										<object class="sizeritem">
-											<object class="wxCheckBox" name="ID_CHECKBOX1" variable="CheckExport" member="yes">
-												<label>Automatic export on build</label>
+											<object class="wxCheckBox" name="ID_CHECKBOX1" variable="export_on_build" member="yes">
+												<label>Automatic export on build (change requires C::B restart)</label>
 											</object>
 											<flag>wxALL|wxALIGN_LEFT</flag>
 											<border>5</border>
 										</object>
 										<object class="sizeritem">
-											<object class="wxCheckBox" name="ID_CHECKBOX2" variable="CheckUsePrefix" member="yes">
+											<object class="wxCheckBox" name="ID_CHECKBOX2" variable="use_workspace_prefix" member="yes">
 												<label>Use workspace prefix in premake5 filename</label>
 											</object>
 											<flag>wxALL|wxALIGN_LEFT</flag>
+											<border>5</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_CHECKBOX3" variable="use_workspace_defaults" member="yes">
+												<label>Use workspace defaults</label>
+											</object>
+											<flag>wxALL|wxEXPAND</flag>
+											<border>5</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_CHECKBOX4" variable="use_project_defaults" member="yes">
+												<label>Use project defaults</label>
+											</object>
+											<flag>wxALL|wxEXPAND</flag>
 											<border>5</border>
 										</object>
 										<object class="spacer">

@@ -3,10 +3,10 @@
 #include <vector>
 #include "pm_settings.h"
 
-/* for debugging
+// for debugging
 #include <manager.h>
 #include <logmanager.h>
-*/
+
 
 static std::vector<wxString> tokenize(const wxString& input,  const wxString& delimiters)
 {
@@ -37,10 +37,13 @@ void pm_defaults::factory_settings()
      ,"*.c"
    };
 
+   m_bool_map["export_on_build"]        = false;
+   m_bool_map["use_workspace_prefix"]   = true;
+   m_bool_map["use_workspace_defaults"] = true;
+   m_bool_map["use_project_defaults"]   = true;
+
    m_settings_map["workspace_defaults"] =
    {
-      "includedirs (\"$[CPDE_USR]/include\")"
-      ,"libdirs (\"$[CPDE_USR]/lib\")"
    };
 
    m_settings_map["project_defaults"] =
@@ -85,6 +88,14 @@ void pm_defaults::FromConfigManager()
          for(size_t i=0; i<nval; i++) vals.push_back(arr[i]);
       }
    }
+
+   for(auto& p : m_bool_map) {
+      const wxString& key = p.first;
+      bool&           val = p.second;
+      m_cfgmgr->Read(key,&val);
+
+      Manager::Get()->GetLogManager()->Log("premake5cb: Read " + key + " " + std::to_string(val));
+   }
 }
 
 void pm_defaults::ToConfigManager()
@@ -100,6 +111,14 @@ void pm_defaults::ToConfigManager()
       for(auto s : vals) arr.Add(s);
 
       m_cfgmgr->Write(key,arr);
+   }
+
+   for(auto& p : m_bool_map) {
+      const wxString& key = p.first;
+      bool            val = p.second;
+      m_cfgmgr->Write(key,val);
+
+      Manager::Get()->GetLogManager()->Log("premake5cb: Write " + key + " " + std::to_string(val));
    }
 }
 
@@ -139,4 +158,17 @@ wxString pm_defaults::get_alias(const wxString& libname) const
    if(it != m_alias_map.end()) return it->second;
 
    return libname;
+}
+
+bool pm_defaults::get_bool_flag(const wxString& key, bool defval) const
+{
+   auto it = m_bool_map.find(key);
+   if(it != m_bool_map.end()) return it->second;
+
+   return defval;
+}
+
+void pm_defaults::put_bool_flag(const wxString& key, bool value)
+{
+   m_bool_map[key] = value;
 }

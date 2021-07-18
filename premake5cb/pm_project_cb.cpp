@@ -12,8 +12,11 @@ pm_project_cb::pm_project_cb(pm_workspace* ws, cbProject* cbproject)
 : m_ws(ws)
 , m_cbproject(cbproject)
 , m_regx(pm_regex::default_cpp())
+, m_settings(std::make_shared<pm_settings>())
 {
-   m_settings = ws->defaults()->get_settings("project_defaults");
+   if(m_ws->defaults()->get_bool_flag("use_project_defaults")) {
+      m_settings = m_ws->defaults()->get_settings("project_defaults");
+   }
 
    // include this project's path as include path explicitly
    // because sometimes we include files from subdirs of this project
