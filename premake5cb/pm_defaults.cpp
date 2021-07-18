@@ -59,6 +59,8 @@ void pm_defaults::factory_settings()
       "defines (\"DEBUG\")"
       ,"symbols (\"on\")"
    };
+
+   m_alias_map.clear();
 }
 
 void pm_defaults::FromConfigManager()
@@ -121,4 +123,12 @@ std::shared_ptr<pm_settings> pm_defaults::get_settings(const wxString& category)
       }
    }
    return settings;
+}
+
+wxString pm_defaults::get_alias(const wxString& libname) const
+{
+   auto it = m_alias_map.find(libname);
+   if(it != m_alias_map.end()) return it->second;
+
+   return libname;
 }

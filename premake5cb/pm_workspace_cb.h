@@ -22,7 +22,7 @@ public:
    bool is_local_workspace() const;
 
    // return name of build location
-   virtual wxString location_name() const;
+   virtual wxString location_path() const;
 
    // return number of projects in workspace
    virtual size_t size() const { return m_projects.size(); }

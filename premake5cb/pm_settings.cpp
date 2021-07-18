@@ -1,4 +1,5 @@
 #include "pm_settings.h"
+#include <logmanager.h>
 
 pm_settings::pm_settings()
 {}
@@ -10,6 +11,14 @@ void pm_settings::assign(const wxString& key, const string_vec& vec)
 {
    auto& s = m_settings[key];
    for(auto v : vec) s.insert(v);
+}
+
+string_set pm_settings::values(const wxString& key)
+{
+   auto it=m_settings.find(key);
+   if(it != m_settings.end()) return it->second;
+
+   return string_set();
 }
 
 void pm_settings::premake_export(size_t tabs, std::ostream& out)
@@ -25,6 +34,11 @@ void pm_settings::premake_export(size_t tabs, std::ostream& out)
       if(vals.size()>1){
          left='{';
          right='}';
+      }
+
+      if(key=="links") {
+         for(size_t i=0;i<tabs;i++) out << '\t';
+         out << "-- links refer to project name, not library name"<< std::endl;
       }
 
       for(size_t i=0;i<tabs;i++) out << '\t';

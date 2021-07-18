@@ -25,7 +25,7 @@ public:
    virtual wxString name()  const { return filename().GetName(); }
 
    // return name of build location
-   virtual wxString location_name() const = 0;
+   virtual wxString location_path() const = 0;
 
    // return number of projects in workspace
    virtual size_t size() const = 0;

@@ -7,6 +7,7 @@ class pm_workspace;
 class cbProject;
 class pm_regex;
 class pm_settings;
+class pm_defaults;
 
 // Code::Blocks aware project class
 class pm_project_cb : public pm_project {
@@ -21,7 +22,7 @@ public:
    bool is_workspace_subdir() const;
 
    // premake5 location name
-   virtual wxString location_name();
+   virtual wxString location_path();
 
    // return relative path from workspace to project directory
    virtual wxString relative_path() const;
@@ -36,6 +37,9 @@ public:
 
    // settings on project level
    virtual std::shared_ptr<pm_settings> settings() { return m_settings; }
+
+   // default settings
+   virtual std::shared_ptr<pm_defaults> defaults();
 
    // traverse configurations in project
    pm_config_iterator config_begin() { return m_configs.begin(); }

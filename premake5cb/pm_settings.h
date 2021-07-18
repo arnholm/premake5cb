@@ -19,6 +19,9 @@ public:
    // assign a vector of values to a setting
    void assign(const wxString& key, const string_vec& v);
 
+   // return values from a setting, empty if not found
+   string_set values(const wxString& key);
+
    // assign a set of values to a setting
    void assign(const wxString& key, const string_set& s) { m_settings[key] = s; }
 

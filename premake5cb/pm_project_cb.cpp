@@ -27,10 +27,14 @@ pm_project_cb::pm_project_cb(pm_workspace* ws, cbProject* cbproject)
 pm_project_cb::~pm_project_cb()
 {}
 
-
-wxString pm_project_cb::location_name()
+std::shared_ptr<pm_defaults> pm_project_cb::defaults()
 {
-   return m_ws->location_name() + "/" + filename().GetName();
+   return m_ws->defaults();
+}
+
+wxString pm_project_cb::location_path()
+{
+   return m_ws->location_path() + "/" + relative_path();
 }
 
 wxString pm_project_cb::relative_path() const
@@ -90,6 +94,18 @@ void pm_project_cb::get_configs()
    int nconfig = m_cbproject->GetBuildTargetsCount();
    for(int i=0; i<nconfig; i++) {
       ProjectBuildTarget* cbtarget = m_cbproject->GetBuildTarget(i);
+
+      // obtain the C::B build target output filename
+      wxString lib_name     = wxFileName(cbtarget->GetOutputFilename()).GetName();
+      wxString project_name = filename().GetName();
+
+      // insert project name as alias for the target output filename
+      m_ws->defaults()->insert_alias(lib_name,project_name);
+
+      // if lib_name is prefixed, also insert without prefix
+      if(lib_name.Left(3) == "lib") lib_name = lib_name.Mid(3);
+      m_ws->defaults()->insert_alias(lib_name,project_name);
+
       m_configs.push_back(std::make_shared<pm_config_cb>(cbtarget,m_ws->defaults()));
    }
 }
@@ -116,7 +132,6 @@ void pm_project_cb::resolve_includes()
 {
    pm_project_vec deps = dependencies();
    for(auto d : deps) {
-     // m_settings->push_back("includedirs",wxString("../")+d->relative_path());
 
       // if includes look like "dep_header.h"
       m_settings->push_back("includedirs",d->relative_path());

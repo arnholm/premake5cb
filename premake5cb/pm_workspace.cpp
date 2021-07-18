@@ -30,7 +30,7 @@ pm_workspace::~pm_workspace()
 void pm_workspace::premake_export(std::ostream& out)
 {
    out << "workspace \"" << name() << "\"" << std::endl;
-   out << "\tlocation \"" << location_name() << "\"" << std::endl;
+   out << "\tlocation \"" << location_path() << "\"" << std::endl;
 
    // export the settings
    if(auto opt = settings()) opt->premake_export(1,out);
