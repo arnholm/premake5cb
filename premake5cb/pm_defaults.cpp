@@ -4,8 +4,8 @@
 #include "pm_settings.h"
 
 // for debugging
-#include <manager.h>
-#include <logmanager.h>
+// #include <manager.h>
+// #include <logmanager.h>
 
 
 static std::vector<wxString> tokenize(const wxString& input,  const wxString& delimiters)
@@ -94,7 +94,7 @@ void pm_defaults::FromConfigManager()
       bool&           val = p.second;
       m_cfgmgr->Read(key,&val);
 
-      Manager::Get()->GetLogManager()->Log("premake5cb: Read " + key + " " + std::to_string(val));
+   //   Manager::Get()->GetLogManager()->Log("premake5cb: Read " + key + " " + std::to_string(val));
    }
 }
 
@@ -118,7 +118,7 @@ void pm_defaults::ToConfigManager()
       bool            val = p.second;
       m_cfgmgr->Write(key,val);
 
-      Manager::Get()->GetLogManager()->Log("premake5cb: Write " + key + " " + std::to_string(val));
+    //  Manager::Get()->GetLogManager()->Log("premake5cb: Write " + key + " " + std::to_string(val));
    }
 }
 
@@ -139,7 +139,7 @@ std::shared_ptr<pm_settings> pm_defaults::get_settings(const wxString& category)
             // remove quotes in tokens
             for(auto& t : tokens) {
                t.Replace("\"","");
-               t.Replace("[","{");
+               t.Replace("[","{");  // this to allow: $[GLOBALVAR]/include   =>  ${GLOBALVAR}/include
                t.Replace("]","}");
                t.Trim(true);  // from right
                t.Trim(false); // from left
