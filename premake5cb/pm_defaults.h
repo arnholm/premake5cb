@@ -14,12 +14,13 @@ using SettingsMap = std::map<wxString,std::vector<wxString>>;
 using AliasMap    = std::map<wxString,wxString>; // <libname,projectname>
 using BoolMap     = std::map<wxString,bool>; // <libname,projectname>
 
+// helper class to manage the setting parameters and for storing/retrieving from ConfigManager
 class pm_defaults {
 public:
    pm_defaults(ConfigManager* cfgmgr);
    virtual ~pm_defaults();
 
-   // translate selected categoryo int a pm_settings object
+   // translate selected category into a pm_settings object
    //   "workspace_defaults"
    //   "project_defaults"
    //   "configurations_release"

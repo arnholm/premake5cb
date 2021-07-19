@@ -3,14 +3,10 @@
 #include <regex>
 
 pm_regex::pm_regex()
-{
-   //ctor
-}
+{}
 
 pm_regex::~pm_regex()
-{
-   //dtor
-}
+{}
 
 void pm_regex::push_back(wxString mask)
 {
