@@ -68,7 +68,7 @@ Under *General*, settings include file name masks for files to be included and o
 
 ```
 ### Project defaults
-There are  tabs for defining premake5 code snippets for workspace, project and configuration filters (the workspace defaults work in the same way as the project defaults, except on workspace level). These settings are applied before the Code::Blocks projects are examined, so they are to be considered initial default values.
+There are  tabs for defining premake5 code snippets for workspace, project and configuration filters (the workspace defaults work in the same way as the project defaults, only on workspace level). These settings are applied before the Code::Blocks projects are examined, so they are to be considered initial default values.
 
 **Figure 4 - Project defaults**
 
@@ -92,19 +92,17 @@ The Config defaults contain filters for Debug and Release, and are roughly equiv
 
 ## Features
 
-In order to make things work, some assumptions have been made. This may imply that not all Code::Blocks workspaces will export and build without manual adjustment, but some will. Sometimes, just a bit of manual adjustments are required and the export then serves as a useful starting point.
-
-* At the time of writing, the plugin builds under Linux only. Constructive assistance to enable Windows build is welcome, consider creating a pull request. The generated Premake5 script can be used for generating [Windows builds](https://premake.github.io/docs/Using-Premake) as well as GNU Makefiles.
+In order to make things work, some assumptions have been made. This may imply that not all Code::Blocks workspaces will export and build without manual adjustment, but some will. Sometimes, just a bit of manual edit/additions are required.  At the time of writing, the plugin builds under Linux only. Constructive suggestions to enable Windows build are welcome, consider creating a pull request. In any case, the generated Premake5 scripts can be used for generating [Windows builds](https://premake.github.io/docs/Using-Premake) as well as GNU Makefiles.
 
 * A Code::Blocks workspace file must exist, the workspace projects must be stored under the workspace folder (long paths are ok).
 
-* Projects such as static libraries, shared libraries and console applications are supported. Projects using wxWidgets are initially not automatically supported, but the ambition is to improve this.
+* Projects such as static libraries, shared libraries and console applications are supported. Projects using wxWidgets are initially not directly supported, but the ambition is to improve this.
 
-* C/C++ projects are assumed, but this can be adjusted with file name filters. C++ language dialect settings such as -std=c++17 in Code::Blocks settings are transferred, as well as possible preprocessor #defines.
+* Projects with C/C++ source files are assumed, but this can be adjusted with file name filters. C++ language dialect settings such as -std=c++17 in Code::Blocks settings are passed on to premake5, as well as possible preprocessor #defines.
 
-* Code::Blocks project dependencies within a workspace are handled on premake export. Include and link paths are automatically managed. It is important to note that when a project links to another project in the same Premake5 workspace, the reference is by project name, not library name. The plugin handles this automatically.
+* Code::Blocks project dependencies within a workspace are handled on premake export. Include and link paths are automatically managed. It is important to note that when a project links to another project in the same Premake5 workspace, the reference is to project name, not library name. The plugin handles this automatically.
 
-* External dependencies can be managed manually using premake5 commands [includedirs](https://premake.github.io/docs/includedirs/) and [libdirs](https://premake.github.io/docs/libdirs/) in either workspace defaults, project defaults or in configs. See also [Premake documentation](https://premake.github.io/docs/) for other possibilites. It is possible to use environment variables in such commands, but be aware that if you want to enter something like ${ENVIRONMENT_VARIABLE} in the settings dialog, it must be written as $[ENVIRONMENT_VARIABLE] with square prackets for the time being.
+* External dependencies can be managed by the user using premake5 commands [includedirs](https://premake.github.io/docs/includedirs/) and [libdirs](https://premake.github.io/docs/libdirs/) in either workspace defaults, project defaults or in configs. See also [Premake documentation](https://premake.github.io/docs/) for other possibilites in dealing with external dependencies. It is possible to use environment variables in such commands, but be aware when something like ${ENVIRONMENT_VARIABLE} is required in the settings dialog, it must be written as $[ENVIRONMENT_VARIABLE] with square brackets for the time being.
 
 
 ```
@@ -113,4 +111,5 @@ In order to make things work, some assumptions have been made. This may imply th
 
 ## Example workspace
 
-coming soon.
+See [https://github.com/arnholm/pm5example1](https://github.com/arnholm/pm5example1) for a complete example.
+
