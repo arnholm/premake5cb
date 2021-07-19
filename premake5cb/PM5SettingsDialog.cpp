@@ -57,7 +57,7 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	wxStaticText* StaticText4;
 	wxStdDialogButtonSizer* StdDialogButtonSizer1;
 
-	Create(parent, id, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
+	Create(parent, id, _("Premake5 exporter settings"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE, _T("id"));
 	SetClientSize(wxDefaultSize);
 	Move(wxDefaultPosition);
 	BoxSizer1 = new wxBoxSizer(wxVERTICAL);

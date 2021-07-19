@@ -2,9 +2,9 @@
 
 *Premake5 exporter* is a [Code::Blocks](https://www.codeblocks.org/) plugin to generate [Premake5](https://premake.github.io/docs/) scripts for Code::Blocks workspaces. This makes it possible to generate GNU Makefiles, MS Visual Studio solutions etc. from a C::B workspace.
 
-## Overview
+## Overview by example
 
-Assume a Code::Blocks workspace *OPEN_CRD.workspace* exists with some projects. With the *Premake5 exporter* plugin activated, *OPEN_CRD_premake5.lua* is created in the same folder (see Figure 1 ). One can then run premake from a terminal and generate e.g. GNU Makefiles:
+Starting with a Code::Blocks workspace *OPEN_CRD.workspace* with some contained projects, the *Premake5 exporter* plugin creates *OPEN_CRD_premake5.lua* in the same folder (see Figure 1 ). In a terminal, *premake5* is used to generate GNU Makefiles:
     
 ```
 $ premake5 --file=OPEN_CRD_premake5.lua gmake2
@@ -17,7 +17,7 @@ Generated buildpm5/crd2pts/Makefile...
 Done (50ms).
 ```
 
-One can then build the code for all the projects in the workspace:
+To build the code for all the projects in the workspace, run make:
 
 ```
 $ cd buildpm5
@@ -33,7 +33,7 @@ make
 ```
 ## Settings
 
-The plugin has several user adjustable options, accessed via the Code::Blocks Plugins menu. The idea with the settings is to provide defaults for values that may not be directly available in the original Code::Blocks workspace or project files.
+The plugin has user adjustable options, accessed via the Code::Blocks Plugins menu. The idea with the settings is to provide defaults for values that may not be directly available in the original Code::Blocks workspace or project files.
 
 * First, defaults are applied from the GUI settings, i.e. on workspace, project and config levels.
 
@@ -92,7 +92,7 @@ The Config defaults contain filters for Debug and Release, and are roughly equiv
 
 ## Features
 
-In order to make things work, some assumptions have been made. This may imply that not all Code::Blokcs workspaces will export and build without manual adjustment, but some will. Sometimes, just a bit of manual adjustments are required and the export then serves as a useful starting point.
+In order to make things work, some assumptions have been made. This may imply that not all Code::Blocks workspaces will export and build without manual adjustment, but some will. Sometimes, just a bit of manual adjustments are required and the export then serves as a useful starting point.
 
 * At the time of writing, the plugin builds under Linux only. Constructive assistance to enable Windows build is welcome, consider creating a pull request. The generated Premake5 script can be used for generating [Windows builds](https://premake.github.io/docs/Using-Premake) as well as GNU Makefiles.
 
@@ -110,3 +110,7 @@ In order to make things work, some assumptions have been made. This may imply th
 ```
 
 ```
+
+## Example workspace
+
+coming soon.
