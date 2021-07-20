@@ -55,9 +55,9 @@ Under *General*, settings include file name masks for files to be included and o
 
 * *Use workspace prefix in premake5 filename* causes the simplified filename *premake5.lua*, to be prefixed with the workspace name, requiring --file=filename option in the premake5 command. 
 
-* *Use workspace/projects defaults* causes these options to be applied before actual projevt values. 
+* *Use workspace/projects defaults* causes these options to be applied before actual project values. 
 
-* *Export project types* makes it possible to filter which project types to be exported. For example, wxWidgets applications is of type "WindowedApp" and may require special buildoptions and linkoptions.
+* *Export project types* makes it possible to filter which project types to be exported. For example, wxWidgets applications is of type "WindowedApp" and may require special buildoptions and linkoptions (see 'Features' below for more details).
 
 * Pressing the *Restore factory settings* does the obvious thing, it resets all options back to their initial install state.
 
@@ -94,13 +94,13 @@ The Config defaults contain filters for Debug and Release, and are roughly equiv
 
 ## Features
 
-In order to make things work, some assumptions have been made. This may imply that not all Code::Blocks workspaces will export and build without manual adjustment, but some will. Sometimes, just a bit of manual edit/additions are required.  At the time of writing, the plugin builds under Linux only. Constructive suggestions to enable Windows build are welcome, consider creating a pull request. In any case, the generated Premake5 scripts can be used for generating [Windows builds](https://premake.github.io/docs/Using-Premake) as well as GNU Makefiles.
+In order to make things work, some assumptions have been made. This may imply that not all Code::Blocks workspaces will export and build without manual adjustment, but many will. Sometimes, just a bit of manual edit is required.  At the time of writing, the plugin builds under Linux only. Constructive suggestions to enable Windows build are welcome, consider creating a pull request. In any case, the generated Premake5 scripts can be used for generating [Windows builds](https://premake.github.io/docs/Using-Premake) as well as GNU Makefiles.
 
 * A Code::Blocks workspace file must exist, the workspace projects must be stored under the workspace folder (long paths are ok).
 
 * Projects such as static libraries, shared libraries and console applications are supported. 
 
-* Projects using wxWidgets are initially not directly supported, but the ambition is to improve this. A preliminary linux-only work around for this issue is to add options similar to the following in the config dialogs.
+* Projects using wxWidgets are initially not directly supported, but the ambition is to improve this. A preliminary linux-only work around for this issue is to add options similar to the following in a suitable location.
 
 ```
     buildoptions { "`wx-config --version=3.0 --cxxflags`" }
