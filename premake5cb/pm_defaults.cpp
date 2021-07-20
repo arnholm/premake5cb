@@ -37,10 +37,16 @@ void pm_defaults::factory_settings()
      ,"*.c"
    };
 
-   m_bool_map["export_on_build"]        = false;
+   m_bool_map["export_on_build"]        = true;
    m_bool_map["use_workspace_prefix"]   = true;
    m_bool_map["use_workspace_defaults"] = true;
    m_bool_map["use_project_defaults"]   = true;
+
+
+   m_bool_map["ExportConsoleApp"]   = true;
+   m_bool_map["ExportSharedLib"]    = true;
+   m_bool_map["ExportStaticLib"]    = true;
+   m_bool_map["ExportWindowedApp"]  = false;
 
    m_settings_map["workspace_defaults"] =
    {

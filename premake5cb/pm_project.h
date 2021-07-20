@@ -53,7 +53,7 @@ public:
    // resolve includes based on dependencies
    virtual void resolve_includes() = 0;
 
-   // export to Lua
+   // export to premake5
    virtual void premake_export(std::ostream& out);
 };
 

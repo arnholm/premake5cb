@@ -19,10 +19,13 @@ public:
    // type of build target "ConsoleApp", "SharedLib" etc.
    virtual wxString kind() = 0;
 
+   // return name of compiler for this config
+   virtual wxString compiler() const = 0;
+
    // is this a debug configuration?
    virtual bool is_debug() const = 0;
 
-   // export to Lua
+   // export to premake5
    virtual void premake_export(std::ostream& out);
 };
 

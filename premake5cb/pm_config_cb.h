@@ -23,6 +23,9 @@ public:
    // is this config using debug settings?
    bool is_debug() const;
 
+   // return name of compiler for this config
+   wxString compiler() const  { return m_compiler; }
+
 protected:
 
    void get_defines();
@@ -33,6 +36,7 @@ private:
    std::shared_ptr<pm_settings> m_settings;  // settings on config/target level
    bool                         m_is_debug;  // this is a debug config
    wxString                     m_name;      // name of config
+   wxString                     m_compiler;  // name of compiler for this config
 };
 
 #endif // PM_CONFIG_CB_H

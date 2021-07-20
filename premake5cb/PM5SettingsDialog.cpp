@@ -11,6 +11,10 @@ const long PM5SettingsDialog::ID_CHECKBOX1 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX2 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX3 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX4 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX5 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX6 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX7 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX8 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT3 = wxNewId();
 const long PM5SettingsDialog::ID_BUTTON1 = wxNewId();
 const long PM5SettingsDialog::ID_PANEL1 = wxNewId();
@@ -53,6 +57,7 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	wxStaticBoxSizer* StaticBoxSizer2;
 	wxStaticBoxSizer* StaticBoxSizer3;
 	wxStaticBoxSizer* StaticBoxSizer4;
+	wxStaticBoxSizer* StaticBoxSizer5;
 	wxStaticText* StaticText2;
 	wxStaticText* StaticText4;
 	wxStdDialogButtonSizer* StdDialogButtonSizer1;
@@ -82,6 +87,20 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	use_project_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX4, _("Use project defaults"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
 	use_project_defaults->SetValue(false);
 	BoxSizer3->Add(use_project_defaults, 0, wxALL|wxEXPAND, 5);
+	StaticBoxSizer5 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Export project types"));
+	ExportWindowedApp = new wxCheckBox(PanelGeneral, ID_CHECKBOX5, _("WindowedApp"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
+	ExportWindowedApp->SetValue(false);
+	StaticBoxSizer5->Add(ExportWindowedApp, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	ExportConsoleApp = new wxCheckBox(PanelGeneral, ID_CHECKBOX6, _("ConsoleApp"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX6"));
+	ExportConsoleApp->SetValue(false);
+	StaticBoxSizer5->Add(ExportConsoleApp, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	ExportStaticLib = new wxCheckBox(PanelGeneral, ID_CHECKBOX7, _("StaticLib"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX7"));
+	ExportStaticLib->SetValue(false);
+	StaticBoxSizer5->Add(ExportStaticLib, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	ExportSharedLib = new wxCheckBox(PanelGeneral, ID_CHECKBOX8, _("SharedLib"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX8"));
+	ExportSharedLib->SetValue(false);
+	StaticBoxSizer5->Add(ExportSharedLib, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
+	BoxSizer3->Add(StaticBoxSizer5, 0, wxALL|wxALIGN_LEFT, 5);
 	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer4 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Factory settings"));
 	StaticText3 = new wxStaticText(PanelGeneral, ID_STATICTEXT3, _("Warning: This cannot be undone!"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
@@ -180,6 +199,12 @@ void PM5SettingsDialog::ToDialog(std::shared_ptr<pm_defaults> defaults)
 
    use_workspace_defaults->SetValue(defaults->get_bool_flag("use_workspace_defaults"));
    use_project_defaults->SetValue(defaults->get_bool_flag("use_project_defaults"));
+
+
+	ExportConsoleApp->SetValue(defaults->get_bool_flag("ExportConsoleApp"));
+	ExportSharedLib->SetValue(defaults->get_bool_flag("ExportSharedLib"));
+	ExportStaticLib->SetValue(defaults->get_bool_flag("ExportStaticLib"));
+	ExportWindowedApp->SetValue(defaults->get_bool_flag("ExportWindowedApp"));
 }
 
 void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
@@ -194,6 +219,11 @@ void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
    defaults->put_bool_flag("use_workspace_prefix",use_workspace_prefix->GetValue());
    defaults->put_bool_flag("use_workspace_defaults",use_workspace_defaults->GetValue());
    defaults->put_bool_flag("use_project_defaults",use_project_defaults->GetValue());
+
+   defaults->put_bool_flag("ExportConsoleApp",ExportConsoleApp->GetValue());
+   defaults->put_bool_flag("ExportSharedLib",ExportSharedLib->GetValue());
+   defaults->put_bool_flag("ExportStaticLib",ExportStaticLib->GetValue());
+   defaults->put_bool_flag("ExportWindowedApp",ExportWindowedApp->GetValue());
 
    m_defaults = defaults;
 }

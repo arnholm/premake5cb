@@ -35,7 +35,7 @@ public:
    iterator begin() { return m_settings.begin(); }
    iterator end()   { return m_settings.end(); }
 
-   // export to Lua
+   // export to premake5
    void premake_export(size_t tabs, std::ostream& out);
 
 private:

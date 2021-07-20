@@ -11,7 +11,7 @@ public:
    pm_base();
    virtual ~pm_base();
 
-   // export to Lua
+   // export to premake5
    virtual void premake_export(std::ostream& out) = 0;
 };
 

@@ -16,7 +16,7 @@ public:
    // return filename relative to the project
    virtual wxFileName relative_filename() const = 0;
 
-   // export to Lua
+   // export to premake5
    virtual void premake_export(std::ostream& out);
 };
 

@@ -29,6 +29,10 @@ class PM5SettingsDialog: public wxScrollingDialog
 		void PutLines(wxTextCtrl* ctrl, const std::vector<wxString>& lines);
 
 		//(*Declarations(PM5SettingsDialog)
+		wxCheckBox* ExportConsoleApp;
+		wxCheckBox* ExportSharedLib;
+		wxCheckBox* ExportStaticLib;
+		wxCheckBox* ExportWindowedApp;
 		wxCheckBox* export_on_build;
 		wxCheckBox* use_project_defaults;
 		wxCheckBox* use_workspace_defaults;
@@ -50,6 +54,10 @@ class PM5SettingsDialog: public wxScrollingDialog
 		static const long ID_CHECKBOX2;
 		static const long ID_CHECKBOX3;
 		static const long ID_CHECKBOX4;
+		static const long ID_CHECKBOX5;
+		static const long ID_CHECKBOX6;
+		static const long ID_CHECKBOX7;
+		static const long ID_CHECKBOX8;
 		static const long ID_STATICTEXT3;
 		static const long ID_BUTTON1;
 		static const long ID_PANEL1;

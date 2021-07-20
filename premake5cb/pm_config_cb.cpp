@@ -9,7 +9,8 @@ pm_config_cb::pm_config_cb(ProjectBuildTarget* cbtarget, std::shared_ptr<pm_defa
 , m_defaults(defaults)
 , m_is_debug(false)
 {
-   m_name = m_cbtarget->GetTitle();
+   m_name     = m_cbtarget->GetTitle();
+   m_compiler = m_cbtarget->GetCompilerID();
    get_defines();
 }
 
@@ -87,7 +88,7 @@ void pm_config_cb::get_defines()
 
       // anything but MSVC libraries
       if(links[i].Find("msvc") == wxNOT_FOUND) {
-         m_settings->push_back("links",links[i]);
+         m_settings->push_back("links",wxFileName(links[i]).GetName());
       }
    }
 }

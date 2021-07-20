@@ -65,6 +65,41 @@
 											<flag>wxALL|wxEXPAND</flag>
 											<border>5</border>
 										</object>
+										<object class="sizeritem">
+											<object class="wxStaticBoxSizer" variable="StaticBoxSizer5" member="no">
+												<label>Export project types</label>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_CHECKBOX5" variable="ExportWindowedApp" member="yes">
+														<label>WindowedApp</label>
+													</object>
+													<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+												</object>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_CHECKBOX6" variable="ExportConsoleApp" member="yes">
+														<label>ConsoleApp</label>
+													</object>
+													<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+												</object>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_CHECKBOX7" variable="ExportStaticLib" member="yes">
+														<label>StaticLib</label>
+													</object>
+													<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+												</object>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_CHECKBOX8" variable="ExportSharedLib" member="yes">
+														<label>SharedLib</label>
+													</object>
+													<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
+													<border>5</border>
+												</object>
+											</object>
+											<flag>wxALL|wxALIGN_LEFT</flag>
+											<border>5</border>
+										</object>
 										<object class="spacer">
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>

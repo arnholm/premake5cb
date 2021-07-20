@@ -51,11 +51,13 @@ The plugin has user adjustable options, accessed via the Code::Blocks Plugins me
 ### General
 Under *General*, settings include file name masks for files to be included and options to control the way the plugin works. 
 
-* Enabling *Automatic export on build*  causes the premake5 script to be regenerated every time you compile in Code::Blocks, eliminating the need for manual export (ref. Figure 1). 
+* *Automatic export on build*  causes the premake5 script to be regenerated every time you compile in Code::Blocks, eliminating the need for manual export (ref. Figure 1). 
 
-* Disabling *Use workspace prefix in premake5 filename* results in simplified filename *premake5.lua*, eliminating the need for using --file=filename option in the premake5 command. 
+* *Use workspace prefix in premake5 filename* causes the simplified filename *premake5.lua*, to be prefixed with the workspace name, requiring --file=filename option in the premake5 command. 
 
-* Disabling *Use workspace/projects defaults* causes their contents to be ignored on export. 
+* *Use workspace/projects defaults* causes these options to be applied before actual projevt values. 
+
+* *Export project types* makes it possible to filter which project types to be exported. For example, wxWidgets applications is of type "WindowedApp" and may require special buildoptions and linkoptions.
 
 * Pressing the *Restore factory settings* does the obvious thing, it resets all options back to their initial install state.
 
@@ -96,8 +98,14 @@ In order to make things work, some assumptions have been made. This may imply th
 
 * A Code::Blocks workspace file must exist, the workspace projects must be stored under the workspace folder (long paths are ok).
 
-* Projects such as static libraries, shared libraries and console applications are supported. Projects using wxWidgets are initially not directly supported, but the ambition is to improve this.
+* Projects such as static libraries, shared libraries and console applications are supported. 
 
+* Projects using wxWidgets are initially not directly supported, but the ambition is to improve this. A preliminary linux-only work around for this issue is to add options similar to the following in the config dialogs.
+
+```
+    buildoptions { "`wx-config --version=3.0 --cxxflags`" }
+    linkoptions { "`wx-config --version=3.0 --libs`" }
+```
 * Projects with C/C++ source files are assumed, but this can be adjusted with file name filters. C++ language dialect settings such as -std=c++17 in Code::Blocks settings are passed on to premake5, as well as possible preprocessor #defines.
 
 * Code::Blocks project dependencies within a workspace are handled on premake export. Include and link paths are automatically managed. It is important to note that when a project links to another project in the same Premake5 workspace, the reference is to project name, not library name. The plugin handles this automatically.
