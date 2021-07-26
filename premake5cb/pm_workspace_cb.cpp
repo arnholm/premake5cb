@@ -43,7 +43,8 @@ bool pm_workspace_cb::is_local_workspace() const
 
 wxString pm_workspace_cb::location_path() const
 {
-   return "buildpm5";
+   // return "buildpm5";
+   return "build_location()";
 }
 
 void pm_workspace_cb::get_projects()

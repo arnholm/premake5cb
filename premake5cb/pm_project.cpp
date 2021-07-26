@@ -21,7 +21,7 @@ void pm_project::premake_export(std::ostream& out)
 
       out << std::endl
           << "\tproject \""    << name() << "\"" << std::endl
-          << "\t\tlocation \"" << location_path() << "\"" << std::endl;
+          << "\t\tlocation ( " << location_path() << " )" << std::endl;
 
       if(auto opt = settings()) opt->premake_export(2,out);
 

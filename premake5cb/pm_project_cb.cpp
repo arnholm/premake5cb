@@ -37,7 +37,12 @@ std::shared_ptr<pm_defaults> pm_project_cb::defaults()
 
 wxString pm_project_cb::location_path()
 {
-   return m_ws->location_path() + "/" + relative_path();
+   // this contains a LUA concatenation using '..' because
+   // m_ws->location_path() returns a LUA function call statement
+   // and the final LUA statement becomes something like
+   //    location ( build_location().."/myproject" )
+
+   return m_ws->location_path() + "..\"/" + relative_path() + "\"";
 }
 
 wxString pm_project_cb::relative_path() const
