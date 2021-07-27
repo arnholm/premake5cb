@@ -59,6 +59,15 @@ void pm_config_cb::get_defines()
       m_settings =  m_defaults->get_settings("configurations_release");
    }
 
+   wxString targetname = wxFileName(m_cbtarget->GetOutputFilename()).GetName();
+   // if targetname is prefixed with "lib", remove that prefix because
+   // a) not used with MSVC
+   // b) for g++ it will be added by make (we don't want "liblib")
+   if(targetname.Left(3) == "lib") {
+      targetname = targetname.Mid(3);
+   }
+   m_settings->push_back("targetname",targetname);
+
    for(int i=0; i<opts.GetCount(); i++) {
       wxString str = opts[i];
       wxString sub = str.SubString(0,2);
