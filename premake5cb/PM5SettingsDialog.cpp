@@ -15,6 +15,7 @@ const long PM5SettingsDialog::ID_CHECKBOX5 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX6 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX7 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX8 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX10 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX9 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT3 = wxNewId();
 const long PM5SettingsDialog::ID_BUTTON1 = wxNewId();
@@ -76,7 +77,7 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	Notebook1 = new wxNotebook(this, ID_NOTEBOOK1, wxDefaultPosition, wxSize(200,0), 0, _T("ID_NOTEBOOK1"));
 	PanelGeneral = new wxPanel(Notebook1, ID_PANEL1, wxDefaultPosition, wxDefaultSize, wxTAB_TRAVERSAL, _T("ID_PANEL1"));
 	BoxSizer3 = new wxBoxSizer(wxVERTICAL);
-	export_on_build = new wxCheckBox(PanelGeneral, ID_CHECKBOX1, _("Automatic export on build (change requires C::B restart)"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
+	export_on_build = new wxCheckBox(PanelGeneral, ID_CHECKBOX1, _("Automatic export to premake5 on build (change requires C::B restart)"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX1"));
 	export_on_build->SetValue(false);
 	BoxSizer3->Add(export_on_build, 0, wxALL|wxALIGN_LEFT, 5);
 	use_workspace_prefix = new wxCheckBox(PanelGeneral, ID_CHECKBOX2, _("Use workspace prefix in premake5 filename"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
@@ -102,6 +103,9 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	ExportSharedLib->SetValue(false);
 	StaticBoxSizer5->Add(ExportSharedLib, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(StaticBoxSizer5, 0, wxALL|wxALIGN_LEFT, 5);
+	post_build_copy = new wxCheckBox(PanelGeneral, ID_CHECKBOX10, _("Post build: Copy binaries to common folders under workspace"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX10"));
+	post_build_copy->SetValue(false);
+	BoxSizer3->Add(post_build_copy, 0, wxALL|wxALIGN_LEFT, 5);
 	save_all_on_export = new wxCheckBox(PanelGeneral, ID_CHECKBOX9, _("Save C::B workspace and projects on export"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX9"));
 	save_all_on_export->SetValue(false);
 	BoxSizer3->Add(save_all_on_export, 0, wxALL|wxALIGN_LEFT, 5);
@@ -211,6 +215,7 @@ void PM5SettingsDialog::ToDialog(std::shared_ptr<pm_defaults> defaults)
 	ExportWindowedApp->SetValue(defaults->get_bool_flag("ExportWindowedApp"));
 
 	save_all_on_export->SetValue(defaults->get_bool_flag("save_all_on_export"));
+	post_build_copy->SetValue(defaults->get_bool_flag("post_build_copy"));
 }
 
 void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
@@ -232,6 +237,7 @@ void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
    defaults->put_bool_flag("ExportWindowedApp",ExportWindowedApp->GetValue());
 
    defaults->put_bool_flag("save_all_on_export",save_all_on_export->GetValue());
+   defaults->put_bool_flag("post_build_copy",post_build_copy->GetValue());
 
    m_defaults = defaults;
 }

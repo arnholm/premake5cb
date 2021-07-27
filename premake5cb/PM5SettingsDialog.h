@@ -34,6 +34,7 @@ class PM5SettingsDialog: public wxScrollingDialog
 		wxCheckBox* ExportStaticLib;
 		wxCheckBox* ExportWindowedApp;
 		wxCheckBox* export_on_build;
+		wxCheckBox* post_build_copy;
 		wxCheckBox* save_all_on_export;
 		wxCheckBox* use_project_defaults;
 		wxCheckBox* use_workspace_defaults;
@@ -59,6 +60,7 @@ class PM5SettingsDialog: public wxScrollingDialog
 		static const long ID_CHECKBOX6;
 		static const long ID_CHECKBOX7;
 		static const long ID_CHECKBOX8;
+		static const long ID_CHECKBOX10;
 		static const long ID_CHECKBOX9;
 		static const long ID_STATICTEXT3;
 		static const long ID_BUTTON1;

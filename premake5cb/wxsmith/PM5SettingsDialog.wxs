@@ -39,7 +39,7 @@
 										<orient>wxVERTICAL</orient>
 										<object class="sizeritem">
 											<object class="wxCheckBox" name="ID_CHECKBOX1" variable="export_on_build" member="yes">
-												<label>Automatic export on build (change requires C::B restart)</label>
+												<label>Automatic export to premake5 on build (change requires C::B restart)</label>
 											</object>
 											<flag>wxALL|wxALIGN_LEFT</flag>
 											<border>5</border>
@@ -96,6 +96,13 @@
 													<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 													<border>5</border>
 												</object>
+											</object>
+											<flag>wxALL|wxALIGN_LEFT</flag>
+											<border>5</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_CHECKBOX10" variable="post_build_copy" member="yes">
+												<label>Post build: Copy binaries to common folders under workspace</label>
 											</object>
 											<flag>wxALL|wxALIGN_LEFT</flag>
 											<border>5</border>
