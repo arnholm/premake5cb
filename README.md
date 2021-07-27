@@ -51,15 +51,19 @@ The plugin has user adjustable options, accessed via the Code::Blocks Plugins me
 ### General
 Under *General*, settings include file name masks for files to be included and options to control the way the plugin works. 
 
-* *Automatic export on build*  causes the premake5 script to be regenerated every time you compile in Code::Blocks, eliminating the need for manual export (ref. Figure 1). 
+* *Automatic export on build*: causes the premake5 script to be regenerated every time you compile in Code::Blocks, eliminating the need for manual export (ref. Figure 1). 
 
-* *Use workspace prefix in premake5 filename* causes the simplified filename *premake5.lua*, to be prefixed with the workspace name, requiring --file=filename option in the premake5 command. 
+* *Use workspace prefix in premake5 filename*: causes the simplified filename *premake5.lua*, to be prefixed with the workspace name, requiring --file=filename option in the premake5 command. 
 
-* *Use workspace/projects defaults* causes these options to be applied before actual project values. 
+* *Use workspace/projects defaults*: causes these options to be applied before actual project values. 
 
-* *Export project types* makes it possible to filter which project types to be exported. For example, wxWidgets applications is of type "WindowedApp" and may require special buildoptions and linkoptions (see 'Features' below for more details).
+* *Export project types*: makes it possible to filter which project types to be exported. For example, wxWidgets applications is of type "WindowedApp" and may require special buildoptions and linkoptions (see 'Features' below for more details).
 
-* Pressing the *Restore factory settings* does the obvious thing, it resets all options back to their initial install state.
+* *Post build: Copy binaries to common folders under workspace*: copies built binaries from each project to common debug and release folders under the workspace build folder.
+
+* *Save C::B workspace and projects on export*: saves the C::B workspace and project files before exporting to premake5.
+
+* Pressing the *Restore factory settings*: does the obvious thing, it resets all options back to their initial install state.
 
 **Figure 3 - General**
 
