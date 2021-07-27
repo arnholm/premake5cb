@@ -100,6 +100,13 @@
 											<flag>wxALL|wxALIGN_LEFT</flag>
 											<border>5</border>
 										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_CHECKBOX9" variable="save_all_on_export" member="yes">
+												<label>Save C::B workspace and projects on export</label>
+											</object>
+											<flag>wxALL|wxALIGN_LEFT</flag>
+											<border>5</border>
+										</object>
 										<object class="spacer">
 											<flag>wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL</flag>
 											<border>5</border>

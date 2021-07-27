@@ -15,6 +15,7 @@ const long PM5SettingsDialog::ID_CHECKBOX5 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX6 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX7 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX8 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX9 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT3 = wxNewId();
 const long PM5SettingsDialog::ID_BUTTON1 = wxNewId();
 const long PM5SettingsDialog::ID_PANEL1 = wxNewId();
@@ -101,6 +102,9 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	ExportSharedLib->SetValue(false);
 	StaticBoxSizer5->Add(ExportSharedLib, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(StaticBoxSizer5, 0, wxALL|wxALIGN_LEFT, 5);
+	save_all_on_export = new wxCheckBox(PanelGeneral, ID_CHECKBOX9, _("Save C::B workspace and projects on export"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX9"));
+	save_all_on_export->SetValue(false);
+	BoxSizer3->Add(save_all_on_export, 0, wxALL|wxALIGN_LEFT, 5);
 	BoxSizer3->Add(-1,-1,1, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	StaticBoxSizer4 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Factory settings"));
 	StaticText3 = new wxStaticText(PanelGeneral, ID_STATICTEXT3, _("Warning: This cannot be undone!"), wxDefaultPosition, wxDefaultSize, 0, _T("ID_STATICTEXT3"));
@@ -205,6 +209,8 @@ void PM5SettingsDialog::ToDialog(std::shared_ptr<pm_defaults> defaults)
 	ExportSharedLib->SetValue(defaults->get_bool_flag("ExportSharedLib"));
 	ExportStaticLib->SetValue(defaults->get_bool_flag("ExportStaticLib"));
 	ExportWindowedApp->SetValue(defaults->get_bool_flag("ExportWindowedApp"));
+
+	save_all_on_export->SetValue(defaults->get_bool_flag("save_all_on_export"));
 }
 
 void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
@@ -224,6 +230,8 @@ void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
    defaults->put_bool_flag("ExportSharedLib",ExportSharedLib->GetValue());
    defaults->put_bool_flag("ExportStaticLib",ExportStaticLib->GetValue());
    defaults->put_bool_flag("ExportWindowedApp",ExportWindowedApp->GetValue());
+
+   defaults->put_bool_flag("save_all_on_export",save_all_on_export->GetValue());
 
    m_defaults = defaults;
 }
