@@ -52,17 +52,24 @@
 											<border>5</border>
 										</object>
 										<object class="sizeritem">
-											<object class="wxCheckBox" name="ID_CHECKBOX3" variable="use_workspace_defaults" member="yes">
-												<label>Use workspace defaults</label>
+											<object class="wxStaticBoxSizer" variable="StaticBoxSizer6" member="no">
+												<label>Use defaults for</label>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_CHECKBOX3" variable="use_workspace_defaults" member="yes">
+														<label>Workspace</label>
+													</object>
+													<flag>wxALL|wxEXPAND</flag>
+													<border>5</border>
+												</object>
+												<object class="sizeritem">
+													<object class="wxCheckBox" name="ID_CHECKBOX4" variable="use_project_defaults" member="yes">
+														<label>Project</label>
+													</object>
+													<flag>wxALL|wxEXPAND</flag>
+													<border>5</border>
+												</object>
 											</object>
-											<flag>wxALL|wxEXPAND</flag>
-											<border>5</border>
-										</object>
-										<object class="sizeritem">
-											<object class="wxCheckBox" name="ID_CHECKBOX4" variable="use_project_defaults" member="yes">
-												<label>Use project defaults</label>
-											</object>
-											<flag>wxALL|wxEXPAND</flag>
+											<flag>wxALL|wxALIGN_LEFT</flag>
 											<border>5</border>
 										</object>
 										<object class="sizeritem">
@@ -99,6 +106,14 @@
 											</object>
 											<flag>wxALL|wxALIGN_LEFT</flag>
 											<border>5</border>
+										</object>
+										<object class="sizeritem">
+											<object class="wxCheckBox" name="ID_CHECKBOX11" variable="export_cb_targetname" member="yes">
+												<label>Export C::B build target output file names</label>
+											</object>
+											<flag>wxALL|wxALIGN_LEFT</flag>
+											<border>5</border>
+											<option>1</option>
 										</object>
 										<object class="sizeritem">
 											<object class="wxCheckBox" name="ID_CHECKBOX10" variable="post_build_copy" member="yes">

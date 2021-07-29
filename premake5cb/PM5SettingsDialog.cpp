@@ -15,6 +15,7 @@ const long PM5SettingsDialog::ID_CHECKBOX5 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX6 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX7 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX8 = wxNewId();
+const long PM5SettingsDialog::ID_CHECKBOX11 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX10 = wxNewId();
 const long PM5SettingsDialog::ID_CHECKBOX9 = wxNewId();
 const long PM5SettingsDialog::ID_STATICTEXT3 = wxNewId();
@@ -60,6 +61,7 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	wxStaticBoxSizer* StaticBoxSizer3;
 	wxStaticBoxSizer* StaticBoxSizer4;
 	wxStaticBoxSizer* StaticBoxSizer5;
+	wxStaticBoxSizer* StaticBoxSizer6;
 	wxStaticText* StaticText2;
 	wxStaticText* StaticText4;
 	wxStdDialogButtonSizer* StdDialogButtonSizer1;
@@ -83,12 +85,14 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	use_workspace_prefix = new wxCheckBox(PanelGeneral, ID_CHECKBOX2, _("Use workspace prefix in premake5 filename"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX2"));
 	use_workspace_prefix->SetValue(false);
 	BoxSizer3->Add(use_workspace_prefix, 0, wxALL|wxALIGN_LEFT, 5);
-	use_workspace_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX3, _("Use workspace defaults"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
+	StaticBoxSizer6 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Use defaults for"));
+	use_workspace_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX3, _("Workspace"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX3"));
 	use_workspace_defaults->SetValue(false);
-	BoxSizer3->Add(use_workspace_defaults, 0, wxALL|wxEXPAND, 5);
-	use_project_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX4, _("Use project defaults"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
+	StaticBoxSizer6->Add(use_workspace_defaults, 0, wxALL|wxEXPAND, 5);
+	use_project_defaults = new wxCheckBox(PanelGeneral, ID_CHECKBOX4, _("Project"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX4"));
 	use_project_defaults->SetValue(false);
-	BoxSizer3->Add(use_project_defaults, 0, wxALL|wxEXPAND, 5);
+	StaticBoxSizer6->Add(use_project_defaults, 0, wxALL|wxEXPAND, 5);
+	BoxSizer3->Add(StaticBoxSizer6, 0, wxALL|wxALIGN_LEFT, 5);
 	StaticBoxSizer5 = new wxStaticBoxSizer(wxHORIZONTAL, PanelGeneral, _("Export project types"));
 	ExportWindowedApp = new wxCheckBox(PanelGeneral, ID_CHECKBOX5, _("WindowedApp"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX5"));
 	ExportWindowedApp->SetValue(false);
@@ -103,6 +107,9 @@ PM5SettingsDialog::PM5SettingsDialog(wxWindow* parent,wxWindowID id,const wxPoin
 	ExportSharedLib->SetValue(false);
 	StaticBoxSizer5->Add(ExportSharedLib, 0, wxALL|wxALIGN_CENTER_HORIZONTAL|wxALIGN_CENTER_VERTICAL, 5);
 	BoxSizer3->Add(StaticBoxSizer5, 0, wxALL|wxALIGN_LEFT, 5);
+	export_cb_targetname = new wxCheckBox(PanelGeneral, ID_CHECKBOX11, _("Export C::B build target output file names"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX11"));
+	export_cb_targetname->SetValue(false);
+	BoxSizer3->Add(export_cb_targetname, 1, wxALL|wxALIGN_LEFT, 5);
 	post_build_copy = new wxCheckBox(PanelGeneral, ID_CHECKBOX10, _("Post build: Copy binaries to common folders under workspace"), wxDefaultPosition, wxDefaultSize, 0, wxDefaultValidator, _T("ID_CHECKBOX10"));
 	post_build_copy->SetValue(false);
 	BoxSizer3->Add(post_build_copy, 0, wxALL|wxALIGN_LEFT, 5);
@@ -216,6 +223,7 @@ void PM5SettingsDialog::ToDialog(std::shared_ptr<pm_defaults> defaults)
 
 	save_all_on_export->SetValue(defaults->get_bool_flag("save_all_on_export"));
 	post_build_copy->SetValue(defaults->get_bool_flag("post_build_copy"));
+	export_cb_targetname->SetValue(defaults->get_bool_flag("export_cb_targetname"));
 }
 
 void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
@@ -238,6 +246,7 @@ void PM5SettingsDialog::FromDialog(std::shared_ptr<pm_defaults> defaults)
 
    defaults->put_bool_flag("save_all_on_export",save_all_on_export->GetValue());
    defaults->put_bool_flag("post_build_copy",post_build_copy->GetValue());
+   defaults->put_bool_flag("export_cb_targetname",export_cb_targetname->GetValue());
 
    m_defaults = defaults;
 }

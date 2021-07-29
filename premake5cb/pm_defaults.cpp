@@ -43,6 +43,7 @@ void pm_defaults::factory_settings()
    m_bool_map["use_workspace_prefix"]   = true;
    m_bool_map["use_workspace_defaults"] = true;
    m_bool_map["use_project_defaults"]   = true;
+   m_bool_map["export_cb_targetname"]   = true;
 
 
    m_bool_map["ExportConsoleApp"]   = true;

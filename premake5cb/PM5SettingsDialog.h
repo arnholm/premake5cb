@@ -33,6 +33,7 @@ class PM5SettingsDialog: public wxScrollingDialog
 		wxCheckBox* ExportSharedLib;
 		wxCheckBox* ExportStaticLib;
 		wxCheckBox* ExportWindowedApp;
+		wxCheckBox* export_cb_targetname;
 		wxCheckBox* export_on_build;
 		wxCheckBox* post_build_copy;
 		wxCheckBox* save_all_on_export;
@@ -60,6 +61,7 @@ class PM5SettingsDialog: public wxScrollingDialog
 		static const long ID_CHECKBOX6;
 		static const long ID_CHECKBOX7;
 		static const long ID_CHECKBOX8;
+		static const long ID_CHECKBOX11;
 		static const long ID_CHECKBOX10;
 		static const long ID_CHECKBOX9;
 		static const long ID_STATICTEXT3;
@@ -80,6 +82,7 @@ class PM5SettingsDialog: public wxScrollingDialog
 
 		//(*Handlers(PM5SettingsDialog)
 		void OnFactorySettingsButtonClick(wxCommandEvent& event);
+		void OnNotebook1PageChanged(wxNotebookEvent& event);
 		//*)
 
 		DECLARE_EVENT_TABLE()
